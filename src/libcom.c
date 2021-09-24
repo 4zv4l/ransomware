@@ -76,9 +76,13 @@ int docrypt(FILE* in, FILE* out, char* key, char (*cyph)(char,char*)){
 
 char enc(char c, char* key){
   static int i = 0;
-  return c^key[i%strlen(key)];
+  char buff = c^key[i%strlen(key)];
+  i+=1;
+  return buff;
 }
 char dec(char c, char* key){
   static int i = 0;
-  return c^key[i%strlen(key)];
+  char buff = c^key[i%strlen(key)];
+  i+=1;
+  return buff;
 }
