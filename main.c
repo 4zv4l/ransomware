@@ -7,13 +7,15 @@
     #include "src/libwin.h"
     #include <windows.h>                // Windows API
 #endif
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "src/libcom.h"
 
 
 int main (int argc, char *argv[]){
   printf("Here we go again...\n");
   welcome();
+  test();
   return 0;
 }
