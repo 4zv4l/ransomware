@@ -17,15 +17,18 @@ char enc(char,char*);
 // decrypt the char with the given key
 char dec(char,char*);
 // add the extension to the encrypted file
-char* addext(const char* s1, const char* s2);
+char* addext(const char* path, const char* ext);
 // remove the extension from the file
 char* remext(const char* input);
+
+// take the path of a file and manage function to encrypt it
+int processFile(char* path);
 
 /////////////////////
 
 // check if the given path is a directory
 int isDir(char* path);
-// show the files in the directory
-int showDir(char* path);
+// show the files in the directory recursively and encrypt them
+int encDir(char* path);
 // add the full path to the file
 char* addPath(const char* path, const char* file);
