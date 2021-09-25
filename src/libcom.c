@@ -100,6 +100,7 @@ int showDir(char* path){
     if(isDir(fullpath)){
       showDir(fullpath);
     }
+    free(fullpath);
   }
   closedir(dir);
   return 0;

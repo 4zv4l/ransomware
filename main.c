@@ -1,4 +1,4 @@
-#ifdef __unix__                         // if linux or others Unix like OS
+#ifdef __unix__                         // if UnixLike system
     #define OS_Windows 0
     #include "src/liblin.h"
     #include <unistd.h>                 // linux kernel syscall
