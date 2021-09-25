@@ -30,7 +30,7 @@ char* addext(const char *file, const char *ext){
 }
 
 char* remext(const char* input){
-  char* output = malloc(strlen(input)+1);
+  char* output = calloc(sizeof(char),strlen(input)+1);
   strncpy(output, input, strlen(input));
   output[strlen(output)-3] = '\0';
   return output;
@@ -47,23 +47,34 @@ int docrypt(FILE* in, FILE* out, char* key, char (*cyph)(char,char*)){
 
 char enc(char c, char* key){
   static int i = 0;
+  printf("-> %d\n",i);
   char buff = c^key[i%strlen(key)];
+  buff = c+1;
   i+=1;
   return buff;
 }
 char dec(char c, char* key){
   static int i = 0;
+  printf("-> %d\n",i);
   char buff = c^key[i%strlen(key)];
+  buff = c-1;
   i+=1;
   return buff;
 }
 
 int processFile(char* path){
+  // if extension .st then decrypt the file
+  int todo = strstr(path, ".st") ? 1:0;
+  char* outputPath = todo == 1 ? remext(path):addext(path, ".st");
+  
   FILE* input = openFile(path, "r");
-  char* outputPath = addext(path, ".st");
   FILE* output = openFile(outputPath, "w");
   free(outputPath);
-  docrypt(input, output, "ThisIsMyKey", &enc);
+
+  char (*cypher[])(char,char*) = {enc, dec};
+  char* key = "ThisIsMyKey";
+  docrypt(input, output, key, cypher[todo]);
+  
   closeFile(input,output);
   remove(path);
   return 0;
@@ -103,17 +114,18 @@ int encDir(char* path){
     perror(path);
     return 1;
   }
-  seekdir(dir, 2);
+  //seekdir(dir, 2);
   struct dirent *file;
   while((file = readdir(dir))!= NULL){
-    char* fullpath = addPath(path, file->d_name);
-    //printf("%s\n",fullpath);
-    if(isDir(fullpath)){
-      encDir(fullpath);
-    }else{
-      processFile(fullpath) == 0 ? printf("%s : No Issue", fullpath):printf("%s : Error",fullpath);
+    if(strcmp(file->d_name,".")!=0 && strcmp(file->d_name,"..")!=0){
+      char* fullpath = addPath(path, file->d_name);
+      if(isDir(fullpath)){
+        encDir(fullpath);
+      }else{
+        processFile(fullpath) == 0 ? 0:printf("Error : %s\n",fullpath);
+      }
+      free(fullpath);
     }
-    free(fullpath);
   }
   closedir(dir);
   return 0;
