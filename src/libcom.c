@@ -1,34 +1,5 @@
 #include "libcom.h"
 
-void test(){
-  printf("common lib is working !\n");
-}
-
-// int main(int argc, char** argv){
-//   if (argc < 2){
-//     printf(
-//         "Usage : %s [d] <input file>\n"
-//         "encrypt by default but decrypt if d is added as first argument\n",argv[0]);
-//     return 0;
-//   }
-// 
-//   int choice = strcmp(argv[1],"d")==0 ? 1:0; // 0->encrypt 1->decrypt
-// 
-//   FILE* input = openFile(argv[choice+1],"r"); 
-//   char* outfilename = choice == 0 ? addext(argv[choice+1],".st") : remext(argv[choice+1]);
-//   FILE* output = openFile(outfilename, "w");
-//   free(outfilename);
-// 
-//   char key[] = "ThisIsMyKey"; 
-//   char (*cyph[])(char,char*) = {enc, dec};
-//   docrypt(input, output, key,cyph[choice]); 
-// 
-//   closeFile(input,output);
-//   // delete the input file
-//   remove(argv[choice+1]);
-//   return 0;
-// }
-
 FILE* openFile(const char* path, const char* mode){
   FILE* fp = fopen(path,mode);
     // if error when opening one of the two file then exit
@@ -85,4 +56,51 @@ char dec(char c, char* key){
   char buff = c^key[i%strlen(key)];
   i+=1;
   return buff;
+}
+
+/////////////////////////////////::
+
+char* addPath(const char *path, const char *file){
+   int lenPath = strlen(path);
+   int lenFile = strlen(file);
+   char *full = malloc(lenPath + lenFile + 2); // +2 for the null-terminator, /
+   if (path == NULL){
+     perror("");
+     return "";
+   }
+   memcpy(full, path, lenPath);
+   memcpy(full + lenPath, "/",1);
+   memcpy(full + lenPath + 1, file, lenFile + 1); // +1 to copy the null-terminator
+   return full;
+}
+
+int isDir(char* path){
+  DIR *dir = opendir(path);   
+  if (dir) {
+    closedir(dir);
+    return 1;
+  } else if (ENOENT == errno) {
+    return 0;
+  } else {
+    return 0;
+  }
+}
+
+int showDir(char* path){
+  DIR *dir = opendir(path);
+  if (dir == NULL){
+    perror(path);
+    return 1;
+  }
+  seekdir(dir, 2);
+  struct dirent *file;
+  while((file = readdir(dir))!= NULL){
+    char* fullpath = addPath(path, file->d_name);
+    printf("%s\n",fullpath);
+    if(isDir(fullpath)){
+      showDir(fullpath);
+    }
+  }
+  closedir(dir);
+  return 0;
 }

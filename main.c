@@ -16,6 +16,6 @@
 int main (int argc, char *argv[]){
   printf("Here we go again...\n");
   welcome();
-  test();
+  showDir("src");
   return 0;
 }

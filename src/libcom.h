@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-void test();
+#include <dirent.h>
+#include <errno.h>
 
 // open the file in the right mode and check for errors
 FILE* openFile(const char* path, const char* mode);
@@ -21,4 +21,11 @@ char* addext(const char* s1, const char* s2);
 // remove the extension from the file
 char* remext(const char* input);
 
+/////////////////////
 
+// check if the given path is a directory
+int isDir(char* path);
+// show the files in the directory
+int showDir(char* path);
+// add the full path to the file
+char* addPath(const char* path, const char* file);
