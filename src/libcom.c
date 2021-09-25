@@ -36,29 +36,27 @@ char* remext(const char* input){
   return output;
 }
 
-int docrypt(FILE* in, FILE* out, char* key, char (*cyph)(char,char*)){
+int docrypt(FILE* in, FILE* out, char* key, char (*cyph)(char,char*,int*)){
   char c;
+  int i = 0;
   while((c = fgetc(in))!= EOF){
-    c = cyph(c,key);
+    c = cyph(c,key,&i);
     fputc(c,out);
   }
   return 0;
 }
 
-char enc(char c, char* key){
-  static int i = 0;
-  printf("-> %d\n",i);
-  char buff = c^key[i%strlen(key)];
-  buff = c+1;
-  i+=1;
+char enc(char c, char* key, int* i){
+  char buff = c^key[*i%strlen(key)];
+  buff += 1;
+  *i+=1;
   return buff;
 }
-char dec(char c, char* key){
-  static int i = 0;
-  printf("-> %d\n",i);
-  char buff = c^key[i%strlen(key)];
-  buff = c-1;
-  i+=1;
+
+char dec(char c, char* key, int* i){
+  char buff = c-1;
+  buff ^= key[*i%strlen(key)];
+  *i+=1;
   return buff;
 }
 
@@ -71,7 +69,7 @@ int processFile(char* path){
   FILE* output = openFile(outputPath, "w");
   free(outputPath);
 
-  char (*cypher[])(char,char*) = {enc, dec};
+  char (*cypher[])(char,char*,int*) = {enc, dec};
   char* key = "ThisIsMyKey";
   docrypt(input, output, key, cypher[todo]);
   

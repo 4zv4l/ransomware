@@ -11,11 +11,11 @@ int closeFile(FILE*, FILE*);
 // docrypt will read each char from input
 // and use the function given in argument to encrypt each char
 // will write de encrypted char in the output file
-int docrypt(FILE* input, FILE* output, char* key,char (*)(char,char*));
+int docrypt(FILE* input, FILE* output, char* key,char (*)(char,char*,int*));
 // encrypt the char with the given key
-char enc(char,char*);
+char enc(char,char*,int*);
 // decrypt the char with the given key
-char dec(char,char*);
+char dec(char,char*, int*);
 // add the extension to the encrypted file
 char* addext(const char* path, const char* ext);
 // remove the extension from the file
