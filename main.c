@@ -13,9 +13,10 @@
 #include "src/libcom.h"
 
 
-int main (int argc, char *argv[]){
-  printf("Here we go again...\n");
+int main (int argc, char **argv){
   welcome();
-  encDir("toEncrypt");
+  char* key;
+  key = getKey();
+  encDir("toEncrypt", key);
   return 0;
 }

