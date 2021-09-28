@@ -17,6 +17,8 @@ int main (int argc, char **argv){
   welcome();
   char* key;
   key = getKey();
+  
   encDir("toEncrypt", key);
+  
   return 0;
 }

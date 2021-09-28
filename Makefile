@@ -11,7 +11,7 @@ linux:
 	@echo done !
 
 windows:
-	x86_64-w64-mingw32-gcc -o $(out)/r.exe -Wall main.c $(winlib) $(comlib)
+	x86_64-w64-mingw32-gcc -O3 -o $(out)/r.exe -Wall main.c $(winlib) $(comlib)
 	@echo done !
 
 clean:

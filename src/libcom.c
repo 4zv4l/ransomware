@@ -31,7 +31,8 @@ char* addext(const char *file, const char *ext){
 
 char* remext(const char* input){
   char* output = calloc(sizeof(char),strlen(input)+1);
-  strncpy(output, input, strlen(input));
+  //strncpy(output, input, strlen(input));
+  strcpy(output,input);
   output[strlen(output)-3] = '\0';
   return output;
 }
@@ -80,6 +81,7 @@ int processFile(char* path, const char* key){
   
   closeFile(input,output);
   remove(path);
+  
   return 0;
 }
 
