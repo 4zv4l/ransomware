@@ -37,7 +37,7 @@ char* remext(const char* input){
 }
 
 int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*,int*)){
-  char c;
+  int c;
   int i = 0;
   while((c = fgetc(in))!= EOF){
     c = cyph(c,key,&i);
