@@ -3,7 +3,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <errno.h>
-
+#define MAX 1000
 // get the key from the webpage
 char* getKey();
 

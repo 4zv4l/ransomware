@@ -38,12 +38,17 @@ char* remext(const char* input){
 }
 
 int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*,int*)){
-  int c;
-  int i = 0;
-  while((c = fgetc(in))!= EOF){
-    c = cyph(c,key,&i);
-    fputc(c,out);
+  char* line = malloc(MAX);
+  int k = 0;
+  while(fgets(line,MAX, in)!=0){ // for each line in the text
+    int i = 0;
+    while(line[i]!='\0'){ // for each char in the line
+      line[i] = cyph(line[i], key, &k);
+      i++;
+    }
+    fprintf(out, "%s", line);
   }
+  free(line);
   return 0;
 }
 
@@ -54,15 +59,17 @@ char* getKey(){
 }
 
 char enc(char c, const char* key, int* i){
-  char buff = c^(key[*i%strlen(key)]-1);
-  buff += 1;
+  //char buff = c^(key[*i%strlen(key)]-1);
+  //buff += 1;
+  char buff = c+1;
   *i+=1;
   return buff;
 }
 
 char dec(char c, const char* key, int* i){
+  //char buff = c-1;
+  //buff ^= key[*i%strlen(key)]-1;
   char buff = c-1;
-  buff ^= key[*i%strlen(key)]-1;
   *i+=1;
   return buff;
 }
