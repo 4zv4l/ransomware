@@ -6,7 +6,7 @@
 
 // 100 000 000 bytes -> 100M
 //#define MAX 100000000
-#define MAX 100000 // 100 000 -> 100k
+#define MAX 100000000 // 100 000 -> 100k
 
 // get the key from the webpage
 char* getKey();

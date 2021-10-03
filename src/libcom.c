@@ -39,16 +39,16 @@ char* remext(const char* input){
 
 int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*,int*)){
   char* line = malloc(MAX+1);
-  int k = 0;
+  int k = 0, bytes;
   //while(fgets(line,MAX, in)){ // for each line in the text
-  while(fread(line,1,MAX-1,in)>0){
-    line[MAX-1] = '\0';
+  while((bytes = fread(line,1,MAX-1,in))>0){
+    line[MAX] = '\0';
     int i = 0;
     while(line[i]!='\0'){ // for each char in the line
       line[i] = cyph(line[i], key, &k);
       i++;
     }
-    fwrite(line,1,strlen(line),out);
+    fwrite(line,1,bytes,out);
     //fprintf(out, "%s", line);
   }
   free(line);
