@@ -3,7 +3,9 @@
 #include <string.h>
 #include <dirent.h>
 #include <errno.h>
-#define MAX 1000
+
+// 100 000 bytes -> 100k
+#define MAX 100000
 // get the key from the webpage
 char* getKey();
 

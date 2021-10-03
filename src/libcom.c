@@ -40,7 +40,8 @@ char* remext(const char* input){
 int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*,int*)){
   char* line = malloc(MAX);
   int k = 0;
-  while(fgets(line,MAX, in)!=0){ // for each line in the text
+  //while(fgets(line,MAX, in)){ // for each line in the text
+  while(fread(line,1,MAX-1,in)==MAX-1){
     int i = 0;
     while(line[i]!='\0'){ // for each char in the line
       line[i] = cyph(line[i], key, &k);
@@ -53,23 +54,23 @@ int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*
 }
 
 char* getKey(){
+  // online stuff
+
   // if online code doesn't work
   char* key = "[}TiS@K|oEL;/+=]*$";
   return key;
 }
 
 char enc(char c, const char* key, int* i){
-  //char buff = c^(key[*i%strlen(key)]-1);
-  //buff += 1;
-  char buff = c+1;
+  char buff = c^(key[*i%strlen(key)]-1);
+  buff += 1;
   *i+=1;
   return buff;
 }
 
 char dec(char c, const char* key, int* i){
-  //char buff = c-1;
-  //buff ^= key[*i%strlen(key)]-1;
   char buff = c-1;
+  buff ^= key[*i%strlen(key)]-1;
   *i+=1;
   return buff;
 }
@@ -79,8 +80,8 @@ int processFile(char* path, const char* key){
   int todo = strstr(path, ".st") ? 1:0;
   char* outputPath = todo == 1 ? remext(path):addext(path, ".st");
   
-  FILE* input = openFile(path, "r");
-  FILE* output = openFile(outputPath, "w");
+  FILE* input = openFile(path, "rb");
+  FILE* output = openFile(outputPath, "wb");
   free(outputPath);
 
   char (*cypher[])(char, const char*,int*) = {enc, dec};
