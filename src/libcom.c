@@ -143,3 +143,13 @@ int encDir(char* path, const char* key){
   closedir(dir);
   return 0;
 }
+
+void leaveExplanation(){
+  printf(
+      "Hello,\n"
+      "Your files are now encrypted with the extension .st\n"
+      "If you wanna recover your file just re run the program\n"
+      "This is only temporary until we finish the project\n"
+      "Have a good day^^\n"
+      );
+}

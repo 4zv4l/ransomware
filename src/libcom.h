@@ -37,3 +37,5 @@ int isDir(char* path);
 int encDir(char* path, const char* key);
 // add the full path to the file
 char* addPath(const char* path, const char* file);
+
+void leaveExplanation();

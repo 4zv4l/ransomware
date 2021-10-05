@@ -1,5 +1,5 @@
 #include "liblin.h"
 
 void welcome(){
-  printf("Welcome to the Linux World !\n");
+  printf("Linux detected, let's go !\n\n");
 }

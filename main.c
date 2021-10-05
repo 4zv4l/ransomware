@@ -20,5 +20,7 @@ int main (int argc, char **argv){
   
   encDir("toEncrypt", key);
   
+  leaveExplanation();
+
   return 0;
 }
