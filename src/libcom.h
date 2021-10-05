@@ -7,6 +7,7 @@
 #define MAX 1000000 // 1Mb
 
 // get the key from the webpage
+// or if not able to do it use the hard coded encrypted key
 char* getKey();
 
 // open the file in the right mode and check for errors
@@ -38,4 +39,7 @@ int encDir(char* path, const char* key);
 // add the full path to the file
 char* addPath(const char* path, const char* file);
 
+// print how to decrypt
+// maybe write it in a file in the Desktop if possible
+// or somewhere to be easily findable
 void leaveExplanation();
