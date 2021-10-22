@@ -1,3 +1,12 @@
+#ifdef __unix__                         // if UnixLike system
+    #define OS_Windows 0
+    #include "liblin.h"
+    #include <unistd.h>                 // linux kernel syscall
+#elif defined(_WIN32) || defined(WIN32) // if Windows
+    #define OS_Windows 1
+    #include "libwin.h"
+    #include <windows.h>                // Windows API
+#endif
 #include "libcom.h"
 
 FILE* openFile(const char* path, const char* mode){
@@ -5,7 +14,7 @@ FILE* openFile(const char* path, const char* mode){
     // if error when opening one of the two file then exit
   if (fp == NULL){
     perror("file : ");
-    exit(0);
+  exit(0);
   }
   return fp;
 }
@@ -55,9 +64,11 @@ int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*
 
 char* getKey(){
   // online stuff
-
-  // if online code doesn't work
-  char* key = "[}TiS@K|oEL;/+=]*$";
+  char* key = net_get() ?
+    //if network on
+    :
+    // if network off
+    "[}TiS@K|oEL;/+=]*$";
   return key;
 }
 

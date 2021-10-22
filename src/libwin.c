@@ -3,3 +3,7 @@
 void welcome(){
   printf("Windows detected, let's go !\n\n");
 }
+
+char* net_get(){
+  return 0;
+}
