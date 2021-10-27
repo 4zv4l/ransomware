@@ -1,8 +1,9 @@
-out = bin
-lib = src
-winlib = $(lib)/libwin.c
-linlib = $(lib)/liblin.c
-comlib = $(lib)/libcom.c
+out 	 = bin
+lib 	 = src
+winlib 	 = $(lib)/libwin.c
+linlib 	 = $(lib)/liblin.c
+comlib 	 = $(lib)/libcom.c
+serv_in	 = server.c
 
 all: linux windows
 
@@ -14,6 +15,13 @@ windows:
 	x86_64-w64-mingw32-gcc -O3 -o $(out)/r.exe -Wall main.c $(winlib) $(comlib)
 	@echo done !
 
+server:
+	gcc -o $(out)/server -Wall srv/$(serv_in)
+	@echo Server is Ready !
+	./$(out)/server
+
 clean:
 	rm -rf $(out)/*
+	rm readme
+	rm caught.key
 	@echo projet cleaned !
