@@ -16,7 +16,7 @@ FILE* openFile(const char* path, const char* mode){
     // if error when opening one of the two file then exit
   if (fp == NULL){
     perror("file : ");
-  exit(0);
+  return 0;
   }
   return fp;
 }
@@ -98,6 +98,10 @@ int processFile(char* path, const char* key){
   
   FILE* input = openFile(path, "rb");
   FILE* output = openFile(outputPath, "wb");
+  if(input == 0 || output == 0){
+  	printf("error with file just return\n");
+	return 0;
+  }
   free(outputPath);
 
   char (*cypher[])(char, const char*,int*) = {enc, dec};
