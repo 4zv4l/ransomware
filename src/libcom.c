@@ -124,8 +124,12 @@ char* addPath(const char *path, const char *file){
      return "";
    }
    memcpy(full, path, lenPath);
-   memcpy(full + lenPath, "/",1);
-   memcpy(full + lenPath + 1, file, lenFile + 1); // +1 to copy the null-terminator
+   if(strcmp("/",path)==0){
+     memcpy(full + lenPath, file, lenFile + 1); // +1 to copy the null-terminator
+   }else{
+     memcpy(full + lenPath, "/",1);
+     memcpy(full + lenPath + 1, file, lenFile + 1); // +1 to copy the null-terminator
+   }
    return full;
 }
 
