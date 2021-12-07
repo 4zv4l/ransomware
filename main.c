@@ -3,6 +3,12 @@
 #include <string.h>
 #include "src/libcom.h"
 
+void test(int my_variable) {
+	for(int i = 0; i < my_variable; i++) {
+		printf("-> %d\n", my_variable);
+	}
+}
+
 void usage() {
 	printf("Usage : ./ransom <file>\n");
 }
