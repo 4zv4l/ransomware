@@ -16,7 +16,7 @@ windows:
 	@echo done !
 
 server:
-	gcc -o $(out)/server -Wall srv/$(serv_in)
+	gcc -o $(out)/server -Wall serv/$(serv_in)
 	@echo Server is Ready !
 	./$(out)/server
 
