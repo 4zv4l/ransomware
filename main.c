@@ -19,8 +19,8 @@ int main (int argc, char **argv){
 		return 0;
 	}
   int ID = 0;
-  if(argc == 2){
-    ID = atoi(argv[1]);
+  if(argc == 3){
+    ID = atoi(argv[2]);
   }
   // get the key
   char* key;
