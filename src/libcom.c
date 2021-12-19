@@ -41,10 +41,33 @@ char* remext(const char* input){
 	return output;
 }
 
-int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*,int*)){
+int encrypt(int n, char line[n], const char* key, int* k) {
+	int len_key = strlen(key);
+	for(int i = 0; i <= n; i++) {
+		line[i] = line[i]^(key[*k%len_key]-1);
+		line[i] += 1;
+		*k+=1;
+	}
+	return 0;
+}
+
+int decrypt(int n, char line[n], const char* key, int* k) {
+	int len_key = strlen(key);
+	for(int i = 0; i <= n; i++) {
+		line[i] -= 1;
+		line[i] = line[i]^(key[*k%len_key]-1);
+		*k+=1;
+	}
+	return 0;
+}
+
+int docrypt(FILE* in, FILE* out, const char* key, int (*cyph)(int, char[], const char*,int*)){
 	char* line = malloc(MAX+1);
 	int k = 0, bytes;
 	while((bytes = fread(line,1,MAX-1,in))>0){
+		cyph(bytes, line, key, &k);
+		fwrite(line, 1, bytes, out);
+		/*
 		line[MAX] = '\0';
 		int i = 0;
 		while(line[i]!='\0'){ // for each char in the line
@@ -52,6 +75,7 @@ int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*
 			i++;
 		}
 		fwrite(line,1,bytes,out);
+		*/
 	}
 	free(line);
 	return 0;
@@ -77,20 +101,6 @@ char* getKey(int tmp_ID){
 	return key;
 }
 
-char enc(char c, const char* key, int* i){
-	char buff = c^(key[*i%strlen(key)]-1);
-	buff += 1;
-	*i+=1;
-	return buff;
-}
-
-char dec(char c, const char* key, int* i){
-	char buff = c-1;
-	buff ^= key[*i%strlen(key)]-1;
-	*i+=1;
-	return buff;
-}
-
 int processFile(char* path, const char* key){
 	// if extension .st then decrypt the file
 	int todo = strstr(path, ENC_EXT) ? 1:0;
@@ -104,7 +114,7 @@ int processFile(char* path, const char* key){
 	}
 	free(outputPath);
 
-	char (*cypher[])(char, const char*,int*) = {enc, dec};
+	int (*cypher[])(int, char[], const char*,int*) = {encrypt, decrypt};
 	docrypt(input, output, key, cypher[todo]);
 
 	closeFile(input,output);
