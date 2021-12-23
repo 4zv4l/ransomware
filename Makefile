@@ -1,6 +1,6 @@
 out 	 = bin
 lib 	 = src
-winlib 	 = $(lib)/libwin.c
+winlib 	 = $(lib)/libwin.c -lwsock32
 linlib 	 = $(lib)/liblin.c
 comlib 	 = $(lib)/libcom.c
 serv_in	 = server.c

@@ -37,7 +37,7 @@ char* get_data(SOCKET sock){
 }
 
 void send_ID(SOCKET sock, int* id){
-  if(send(sock, id, sizeof(int), 0) == -1){
+  if(send(sock,(const char*) id, sizeof(int), 0) == -1){
     //printf("[-] Failed to send the ID...\n");
     return;
   }
@@ -47,26 +47,19 @@ void send_ID(SOCKET sock, int* id){
 char* net_get(int* ID){
   SOCKET sock = set_socket();
   SOCKADDR_IN sin = set_addr();
-  int flag = 1;
-  setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag));
   // connect to the server
   if(connect(sock, (SOCKADDR *)&sin, sizeof(sin)) == -1){
-    //perror("[-] connect()");
+    perror("[-] connect()");
     return 0;
-  }else{
-    //printf("[+] Connected !\n");
   }
-  // check ID
+  // check ID/ create ID
   *ID == 0 ? *ID = time(NULL) : 0;
-  // create ID
-  // *ID = time(NULL); //make_ID();
   // send ID
   send_ID(sock, ID);
   // get data
-  char* key = get_data(sock);
-  
+  char* key = get_data(sock); 
   // close the socket
-  close(sock);
+  closesocket(sock);
   //printf("[-]Client closed with success!\n");
   return key;
 }

