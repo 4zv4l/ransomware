@@ -1,9 +1,6 @@
 # ransomware
 ransomware for School in C
 
-> please try the ransomware without running the server for now
-> and using the `test` folder
-
 ## How to Build
 Windows + Linux :  
 `make`  
