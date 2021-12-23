@@ -6,7 +6,7 @@
 #define Directory "C:"
 #define PORT 8080
 #define IP "127.0.0.1"
-#define LENGTH 1024
+#define LENGTH 32
 //typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;
 typedef struct sockaddr SOCKADDR;
