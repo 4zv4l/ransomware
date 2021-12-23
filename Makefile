@@ -16,9 +16,9 @@ windows:
 	@echo done !
 
 server:
-	gcc -o $(out)/server -Wall serv/$(serv_in)
-	@echo Server is Ready !
-	./$(out)/server
+	@gcc -o $(out)/server -Wall serv/$(serv_in)
+	@echo listening...
+	@./$(out)/server
 
 clean:
 	rm -rf $(out)/*

