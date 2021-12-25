@@ -215,7 +215,6 @@ int bytes_to_hexa(const unsigned char bytes_string[], char *hex_string, int size
 int hexa_to_bytes(char hex_string[], unsigned char val[], int size)
 {
 	char *pos = hex_string;
-
 	for (size_t count = 0; count < size; count++) {
 		sscanf(pos, "%2hhx", &val[count]);
 		pos += 2;
