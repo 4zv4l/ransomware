@@ -20,8 +20,8 @@ Le ransomware utilise aussi souvent le réseau, soit pour se propager, soit pour
 
 - si aucun argument n'est donné, montre comment utiliser le ransomware
 - le ransomware reçoit la clef (par argument ou en ligne)
-- le ransomware génère un ID si la clef est reçu en ligne
-- le programme se met en mode déchiffrement si la clef est donné en argument
+- le ransomware génère un ID si la clef est reçue en ligne
+- le programme se met en mode déchiffrement si la clef est donnée en argument
 - le programme utilise le deuxième argument comme cible à déchiffrer ou chiffrer
 - le ransomware affiche l'ID en explicant comment recevoir la clef
 
