@@ -140,16 +140,16 @@ génère une clef en utilisant l'ID donné en paramètre et renvoie la clef gén
   data/
   ├── 0003.JPG
   ├── sub1
-  │   ├── parent.exe
-  │   ├── sub11
-  │   │   ├── 81Z67s4AKCL.jpg
-  │   │   └── main.c
-  │   └── trollware2.spec
+  │   ├── parent.exe
+  │   ├── sub11
+  │   │   ├── 81Z67s4AKCL.jpg
+  │   │   └── main.c
+  │   └── trollware2.spec
   └── sub2
       ├── 0003.JPG
       ├── sub21
-      │   ├── 0003.JPG
-      │   └── server
+      │   ├── 0003.JPG
+      │   └── server
       └── sub22
           ├── Featured.jpg
           └── keylog-master.zip
@@ -201,16 +201,16 @@ génère une clef en utilisant l'ID donné en paramètre et renvoie la clef gén
   data
   ├── 0003.JPG.st
   ├── sub1
-  │   ├── parent.exe.st
-  │   ├── sub11
-  │   │   ├── 81Z67s4AKCL.jpg.st
-  │   │   └── main.c.st
-  │   └── trollware2.spec.st
+  │   ├── parent.exe.st
+  │   ├── sub11
+  │   │   ├── 81Z67s4AKCL.jpg.st
+  │   │   └── main.c.st
+  │   └── trollware2.spec.st
   └── sub2
       ├── 0003.JPG.st
       ├── sub21
-      │   ├── 0003.JPG.st
-      │   └── server.st
+      │   ├── 0003.JPG.st
+      │   └── server.st
       └── sub22
           ├── Featured.jpg.st
           └── keylog-master.zip.st
@@ -256,16 +256,16 @@ génère une clef en utilisant l'ID donné en paramètre et renvoie la clef gén
   data
   ├── 0003.JPG
   ├── sub1
-  │   ├── parent.exe
-  │   ├── sub11
-  │   │   ├── 81Z67s4AKCL.jpg
-  │   │   └── main.c
-  │   └── trollware2.spec
+  │   ├── parent.exe
+  │   ├── sub11
+  │   │   ├── 81Z67s4AKCL.jpg
+  │   │   └── main.c
+  │   └── trollware2.spec
   └── sub2
       ├── 0003.JPG
       ├── sub21
-      │   ├── 0003.JPG
-      │   └── server
+      │   ├── 0003.JPG
+      │   └── server
       └── sub22
           ├── Featured.jpg
           └── keylog-master.zip
