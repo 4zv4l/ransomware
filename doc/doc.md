@@ -4,17 +4,17 @@
 
 ## Introduction
 
-Ce document contient la documentation ainsi que la façon sur comment utiliser le ransomware. Veuillez notez qu'un ransomware est un programme malveillant et qu'il est donc fortement déconseiller de l'utiliser sans connaissance du fonctionnement du programme.
+Ce document contient la documentation ainsi que la façon sur comment utiliser le ransomware. Veuillez noter qu'un ransomware est un programme malveillant et qu'il est donc fortement déconseillé de l'utiliser sans connaissance du fonctionnement du programme.
 
-C'est un programme qui à été créé dans un but éducatif, nous révoquons également toutes responsabilités aux usages pour lequel vous l'utiliseriez.
+C'est un programme qui à été créé dans un but éducatif, nous révoquons également toutes responsabilités quand à l'usage que vous pourriez en faire.
 
 ## Qu'est-ce qu'un ransomware 
 
-Un ransomware est un programme malveillant ayant pour but de couper l'accès à certaines données en les chiffrant afin que la personne exécutant le ransomware ne puisse plus y accéder. Le but, est souvent de soutirer de l'argent en échange de la récupération des données, même si parfois malgré le fait que la victime paye, la clef de déchiffrement ne sera jamais envoyée.
+Un ransomware est un programme malveillant ayant pour but de couper l'accès à certaines données en les chiffrant afin que la personne exécutant le ransomware ne puisse plus y accéder. Le but est souvent de soutirer de l'argent en échange de la récupération de données, même si parfois, malgré le fait que la victime paye, la clef de déchiffrement ne sera jamais envoyée.
 
 Le système de chiffrement utilisé est souvent symétrique car la vitesse de chiffrement est beaucoup plus rapide que la chiffrement asymétrique qui requière deux clefs et qui est plus lent. Le chiffrement asymétrique est souvent utilisé pour s'envoyer la clef utilisé pour le chiffrement symétrique pour qu'une tierce personne ne puisse pas la récupérer.
 
-Le ransomware utilise aussi souvent le réseau, soit pour se propager soit pour récupérer des informations (clef, données sensibles, ...) ce qui peut aussi être une faiblesse si l'adresse du serveur est retrouvée, ce qui permettrait de retrouver l'attaquant.
+Le ransomware utilise aussi souvent le réseau, soit pour se propager, soit pour récupérer des informations (clef, données sensibles, ...) ce qui peut aussi être une faiblesse si l'adresse du serveur est retrouvée, ce qui permettrait de retrouver l'attaquant.
 
 ## Fonctionnement global du ransomware
 
@@ -40,6 +40,14 @@ Le ransomware fonctionne comme ceci en ligne de commande : `./ransom <path> [key
 - `path` est le chemin qui pointe vers le dossier ou le fichier à chiffrer
 - `key` la clef si vous voulez déchiffrer un fichier/dossier
 
+## Compiler le programme
+
+Pour compiler le programme, il y a un **Makefile **qui permet de le compiler pour la plateforme de votre choix :
+
+- `make linux` pour compiler pour linux (avec _gcc_)
+- `make windows` pour compiler pour windows (avec _mingw_)
+- `make server` pour compiler et lancer le serveur pour linux (avec _gcc_)
+
 ## Les fonctions du ransomware
 
 les fonctions principales sont :
@@ -59,7 +67,7 @@ les fonctions principales sont :
 ### Fonctions à usage plus basique
 
 > `FILE* openFile(const char* path, const char* mode)`
-> ouvre un fichier dans le mode donné en argument et regarde s'il y a des erreurs
+> ouvre un fichier dans le mode donné en argument et regarde s'il y a des erreurs, retourne un pointer vers la structure du fichier
 
 > `int closeFile(FILE*, FILE*)`
 > ferme le fichier d'entrée et de sortie
@@ -67,17 +75,17 @@ les fonctions principales sont :
 > `int docrypt(FILE* input, FILE* output, const char* key,int (*)(int, char[], const char*,int*))`
 > reçoit un fichier d'entrée et de sortie et utilise la fonction donné en paramètre pour soit chiffrer soit déchiffrer le fichier
 
-> `char encrypt(int n, char[n], const char*, int*)`
+> `int encrypt(int n, char[n], const char*, int*)`
 > chiffre la chaine de caractère donné en argument
 
-> `char decrypt(int n, char[n], const char*, int*)`
+> `int decrypt(int n, char[n], const char*, int*)`
 > déchiffre la chaine de caractères donné en argument
 
 > `char* addext(const char* path, const char* ext)`
-> ajoute l'extension `.st` au fichier
+> ajoute l'extension `.st` au fichier et renvoie le nom du fichier
 
 > `char* remext(const char* input)`
-> enlève l'extension `.st` au fichier
+> enlève l'extension `.st` au fichier et renvoie le nom du fichier
 
 > `int isDir(char* path)`
 > regarde si le chemin donné pointe vers un dossier ou non
@@ -89,7 +97,7 @@ les fonctions principales sont :
 > écrit dans `stdout` et dans un fichier `readme` comment récupérer les données.
 
 > `char* net_get(int* ID)`
-> reçoit un ID en argument et essaie de se connecter au serveur, s'il n'y arrive pas alors l'ID est mit à 0.
+> reçoit un ID en argument et essaie de se connecter au serveur, s'il n'y arrive pas alors l'ID est mit à 0, renvoie la clef obtenu
 
 > `void send_ID(SOCKET sock, int* ID)`
 > envoie l'ID au serveur afin qu'il puisse générer une clef unique
@@ -112,7 +120,7 @@ les fonctions principales sont :
 ## Les fonctions du serveur
 
 > `char *gen_key(int ID)`
-génère une clef en utilisant l'ID donné en paramètre
+génère une clef en utilisant l'ID donné en paramètre, renvoie la clef générée
 
 > `void save(int ID, char* key, char* hkey)`
 > sauvegarde l'ID et la clef ascci et hexa dans un fichier
