@@ -4,16 +4,16 @@
 
 ## Introduction
 
-Ce document contient la documentation ainsi que la façon sur comment utiliser le ransomware. Veuillez noter qu'un ransomware est un programme malveillant et qu'il est donc fortement déconseillé de l'utiliser sans en connaitre son fonctionnement.
+Ce document contient la documentation ainsi que la façon d'utiliser le ransomware. Veuillez noter qu'un ransomware est un programme malveillant et qu'il est donc fortement déconseillé de l'utiliser sans en connaitre son fonctionnement.
 
-C'est un programme qui a été créé dans un but éducatif. 
+Celui-ci est un programme qui a été créé dans un but éducatif. 
 Nous révoquons toutes responsabilités quand à l'usage que vous pourriez en faire.
 
-## Qu'est-ce qu'un ransomware 
+## Qu'est-ce qu'un ransomware
 
-Un ransomware est un programme malveillant ayant pour but de couper l'accès à certaines données en les chiffrant afin que la personne exécutant ce programme ne puisse plus y accéder. Le but est souvent de soutirer de l'argent en échange de la récupération de données, même si parfois, malgré le fait que la victime paye, la clef de déchiffrement ne soit jamais envoyée.
+Un ransomware est un programme malveillant ayant pour but de couper l'accès à certaines données en les chiffrant afin que la personne victime du programme ne puisse plus y accéder. Le but est souvent de soutirer de l'argent en échange de la récupération de données, même si parfois, malgré le fait que la victime paye, la clef de déchiffrement ne sera jamais envoyée.
 
-Le système de chiffrement utilisé est souvent symétrique car la vitesse de ce système est beaucoup plus rapide que le chiffrement asymétrique qui requière deux clefs et qui est plus lent. Le chiffrement asymétrique est souvent utilisé pour envoyer la clef utilisée par le chiffrement symétrique afin qu'une tierce personne ne puisse la récupérer.
+Le système de chiffrement utilisé est souvent symétrique car la vitesse de ce système est beaucoup plus rapide que le chiffrement asymétrique qui requiert deux clefs et qui est plus lent. Le chiffrement asymétrique est souvent utilisé pour envoyer la clef utilisée par le chiffrement symétrique afin qu'une tierce personne ne puisse la récupérer.
 
 Le ransomware utilise aussi souvent le réseau, soit pour se propager, soit pour récupérer des informations (clef, données sensibles, ...) ce qui peut aussi être une faiblesse si l'adresse du serveur est retrouvée, ce qui permettrait d'identifier l'attaquant.
 
@@ -63,7 +63,7 @@ Les fonctions principales sont :
 
 > __int encDir(char* path, const char* key)__
 >
-> ``encDir(char* path, const char* key)`` est la fonction principale du programme, c'est elle qui va boucler de manière récursive afin d'envoyer en argument les fichiers à`` processFile()``.
+> ``encDir(char* path, const char* key)`` est la fonction principale du programme, c'est elle qui va boucler de manière récursive afin d'envoyer en argument les fichiers à `` processFile()``.
 		**récursif** : _Qui peut être répété un nombre indéfini de fois par l'application de la même règle.
 
 ### Fonctions à usage plus basique
@@ -127,7 +127,7 @@ Les fonctions principales sont :
 génère une clef en utilisant l'ID donné en paramètre et renvoie la clef générée
 
 > `void save(int ID, char* key, char* hkey)`
-> sauvegarde l'ID et la clef en ascci et en hexa dans un fichier
+> sauvegarde l'ID et la clef en ascii et en hexa dans un fichier
 
 > `void handleClients(SOCKET sock)`
 > s'occupe d'un client (recevoir l'ID, générer la clef, envoyer la clef)
@@ -275,6 +275,6 @@ génère une clef en utilisant l'ID donné en paramètre et renvoie la clef gén
 
 ## Conclusion
 
-En conclusion, il est préférable de ne pas exécuter un programme sans être sur de la provenance de celui-ci.
+En conclusion, il est préférable de ne pas exécuter un programme sans être sûr de la provenance de celui-ci.
 Car en développant ce projet, surtout en faisant des tests, on se rend rapidement compte que sans la clef de déchiffrement, il est très difficile de pouvoir récupérer les fichiers intacts.
 En cas de manipulation distraite, une solution de rattrapage ne serait pas simple. Si malgré le versement d'argent, la clef n'est pas satisfaisante, voire inexistante, une solution de dernier espoir serait d'essayer de récupérer un fichier à la force brute (essayer toutes les combinaisons possibles).
