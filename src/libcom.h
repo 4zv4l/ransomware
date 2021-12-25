@@ -14,6 +14,9 @@ enum {
 	NO_EXIST
 };
 
+// check in main if the key is given to either encrypt or decrypt
+extern int ENCRYPT;
+
 // get the key from the webpage
 // or if not able to do it use the hard coded encrypted key
 char* getKey();
