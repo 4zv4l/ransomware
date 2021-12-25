@@ -26,8 +26,8 @@ stateDiagram-v2
     check_argument --> two_directory: if argc == 2
     two_directory --> try_get_key_online
     try_get_key_online --> check_file_or_folder
-    check_file_or_folder --> encrypt
-    encrypt --> exit
+    check_file_or_folder --> encrypt_decrypt
+    encrypt_decrypt --> exit
 	check_argument --> three_key: if argc == 3
 	three_key --> get_key_from_argument
 	get_key_from_argument --> decrypt_with_given_key
