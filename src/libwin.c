@@ -1,9 +1,5 @@
 #include "libwin.h"
 
-void welcome(){
-	printf("Windows detected, let's go !\n\n");
-}
-
 SOCKADDR_IN set_addr(){
 	SOCKADDR_IN sin = {0};
 	sin.sin_addr.s_addr = inet_addr(IP); // set the ip

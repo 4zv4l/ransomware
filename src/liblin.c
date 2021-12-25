@@ -1,9 +1,5 @@
 #include "liblin.h"
 
-void welcome(){
-  printf("Linux detected, let's go !\n\n");
-}
-
 SOCKADDR_IN set_addr(){
   SOCKADDR_IN sin = {0};
   sin.sin_addr.s_addr = inet_addr(IP); // set the ip
@@ -58,8 +54,6 @@ char* net_get(int* ID){
   }
   // check ID
   *ID == 0 ? *ID = time(NULL) : 0;
-  // create ID
-  // *ID = time(NULL); //make_ID();
   // send ID
   send_ID(sock, ID);
   // get data
