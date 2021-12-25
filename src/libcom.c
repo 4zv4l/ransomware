@@ -35,7 +35,6 @@ char* addext(const char *file, const char *ext){
 
 char* remext(const char* input){
 	char* output = calloc(sizeof(char),strlen(input)+1);
-	//strncpy(output, input, strlen(input));
 	strcpy(output,input);
 	output[strlen(output)-LEN_ENC_EXT] = '\0';
 	return output;
@@ -87,7 +86,13 @@ char* getKey(int tmp_ID){
 
 int processFile(char* path, const char* key){
 	// if extension .st then decrypt the file
+	// todo = 0 => encrypt
+	// todo = 1 => decrypt
 	int todo = strstr(path, ENC_EXT) ? 1:0;
+	if(todo == 1 && ENCRYPT == 1)
+		return 0; // no encrypt if decrypting
+	if(todo == 0 && ENCRYPT == 0)
+		return 0; // no decrypt if encrypting
 	char* outputPath = todo == 1 ? remext(path):addext(path, ENC_EXT);
 	printf("processing : %s\n", outputPath);
 	FILE* input = openFile(path, "rb");
