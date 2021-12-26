@@ -33,7 +33,7 @@ char* get_data(SOCKET sock){
 }
 
 void send_ID(SOCKET sock, int* id){
-  if(send(sock, id, sizeof(int), 0) == -1){
+  if(send(sock, id, sizeof(id), 0) == -1){
     //printf("[-] Failed to send the ID...\n");
     return;
   }

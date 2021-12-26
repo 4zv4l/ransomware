@@ -7,7 +7,7 @@
 #include <arpa/inet.h>
 #include <unistd.h> 
 #include <netdb.h>
-#define PORT 8080
+#define PORT 8000
 #define FILE_NAME "caught.key"
 #define LENGTH 32
 typedef int SOCKET;
@@ -69,11 +69,10 @@ void handleClients(SOCKET sock){
 		printf("Failed to get the ID...\n");
 		return;
 	}
-	//printf("[+] Got the ID -> %d\n", ID);
+	printf("[+] Got the ID -> %d\n", ID);
 	// gen key
 	char* key = gen_key(ID);
 	// send data
-	//printf("[+]Gotcha Client!\n");
 	if(send(csock, key, strlen(key),0) == -1){
 		printf("[-]Failed sending the key to the Client!\n");
 	} else {
@@ -94,7 +93,7 @@ int main(){
 		return 3;
 	}
 	SOCKADDR_IN sin = {0};
-	sin.sin_addr.s_addr = htonl(INADDR_ANY); // on accept sur toutes les addr
+	sin.sin_addr.s_addr = htonl(INADDR_ANY);
 	sin.sin_family = AF_INET; // ip addr
 	sin.sin_port = htons(PORT); // port
 	int flag = 1;

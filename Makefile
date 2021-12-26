@@ -18,7 +18,8 @@ windows:
 server:
 	@gcc -o $(out)/server -Wall serv/$(serv_in)
 	@echo listening...
-	@./$(out)/server
+	@./$(out)/server &
+	@./serv/proxy &
 
 clean:
 	rm -rf $(out)/*
