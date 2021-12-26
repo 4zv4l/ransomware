@@ -132,6 +132,10 @@ génère une clef en utilisant l'ID donné en paramètre et renvoie la clef gén
 > `void handleClients(SOCKET sock)`
 > s'occupe d'un client (recevoir l'ID, générer la clef, envoyer la clef)
 
+## Serveur intermédiaire
+
+Nous avons mis en place un proxy qui représente un service de serveur en ligne qui ne tient pas de journal. Cela permettrait à un attaquant  d'engager le serveur le temps d'attaquer puis de se désinscrire sans  laisser de traces. Le client ransomware n'aura que le serveur de service comme adresse, ce qui aide à protéger l'anonymat de l'attaquant.
+
 ## Exemple
 
 - Voici un exemple d'arborescence quelconque
