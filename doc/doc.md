@@ -19,22 +19,36 @@ Le ransomware utilise aussi souvent le réseau, soit pour se propager, soit pour
 
 ## Fonctionnement global du ransomware
 
-```mermaid
-stateDiagram-v2	
- 	run --> check_argument
-    check_argument --> less_than_two_or_more: if argc < 2
-    less_than_two_or_more --> show_usage
-    check_argument --> two_directory: if argc == 2
-    two_directory --> try_get_key_online
-    try_get_key_online --> check_file_or_folder
-    check_file_or_folder --> encrypt
-    encrypt --> exit
-	check_argument --> three_key: if argc == 3
-	three_key --> get_key_from_argument
-	get_key_from_argument --> decrypt_with_given_key
-	decrypt_with_given_key --> exit
-	show_usage --> exit
+```flow
+st=>start: ./ransom
+e=>end: return
+usage=>parallel: usage( )
+fin=>end: return
+c1=>condition: argc < 2 ? 
+c2=>condition: argc == 2 ?
+enc=>operation: ENCRYPT = 1
+dec=>operation: ENCRYPT = 0
+getDir=>operation: dir == argv[1]
+getDir2=>operation: dir == argv[1]
+encDir=>parallel: encDir(dir, key)
+c3=>condition: argc == 3 ?
+getKeyArg=>operation: key == argv[2]
+getKeyOnline=>operation: key == getKey( )
+
+st->c1
+c1(yes)->usage
+usage(path1, bottom)->e
+c1(no)->c2
+c2(yes)->enc->getDir
+getDir->getKeyOnline
+getKeyOnline->encDir
+c2(no)->c3
+c3(yes)->dec->getDir2->getKeyArg
+getKeyArg->encDir
+encDir(path2,bottom)->fin
 ```
+
+
 
 Le ransomware fonctionne comme ceci en ligne de commande : `./ransom <path> [key]`
 
