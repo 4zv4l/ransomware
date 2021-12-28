@@ -57,11 +57,21 @@ Le ransomware fonctionne comme ceci en ligne de commande : `./ransom <path> [key
 
 ## Compiler le programme
 
-Il y a un **Makefile **qui permet de le compiler pour la plateforme de votre choix :
+Il y a un **Makefile** qui permet de le compiler pour la plateforme de votre choix :
 
 - `make linux` pour compiler pour Linux (avec _gcc_)
+
 - `make windows` pour compiler pour Windows (avec _mingw_)
+
 - `make server` pour compiler et lancer le serveur pour Linux (avec _gcc_)
+
+## Porter le programme à une autre plateforme
+
+Le programme est conçu de manière à ce que la partie ransomware sans  serveur puisse être portée d'une machine à une autre, à condition qu'elle dispose de la librairie C standard. La seule partie non portable du ransomware est la partie réseau qui est contenu dans les fichiers  "liblin" et "libwin"  pour "Linux" et  "Windows", il vous suffit donc de porter cette partie pour porter complètement le ransomware sur votre plateforme.
+
+Quant au serveur du ransomware, pour le porter sur Windows ou autre, tout sera à refaire puisque le code utilise les librairies système linux, même si les fonctions système pour les sockets ne changent pas beaucoup entre Linux et Windows.
+
+Pour le serveur proxy, étant programmé en Go, il suffit de modifier les variables environnements `GOOS` et `GOPATH` qui permettent la compilation multiplateforme.
 
 ## Les fonctions du ransomware
 

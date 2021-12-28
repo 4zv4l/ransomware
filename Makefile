@@ -8,18 +8,18 @@ serv_in	 = server.c
 all: linux windows
 
 linux:
-	gcc -o $(out)/r.lin -Wall main.c $(linlib) $(comlib)
+	gcc -o $(out)/ransom.lin -Wall main.c $(linlib) $(comlib)
 	@echo done !
 
 windows:
-	x86_64-w64-mingw32-gcc -O3 -o $(out)/r.exe -Wall main.c $(winlib) $(comlib)
+	x86_64-w64-mingw32-gcc -O3 -o $(out)/ransom.exe -Wall main.c $(winlib) $(comlib)
 	@echo done !
 
 server:
-	@gcc -o $(out)/server -Wall serv/$(serv_in)
+	@gcc -o $(out)/server.lin -Wall serv/$(serv_in)
 	@echo listening...
-	@./$(out)/server &
-	@./serv/proxy &
+	@./$(out)/server.lin &
+	@./bin/proxy.lin &
 
 clean:
 	rm -rf $(out)/*
