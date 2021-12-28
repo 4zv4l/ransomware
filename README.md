@@ -33,7 +33,7 @@ Le ransomware fonctionne comme ceci en ligne de commande : `./ransom <path> [key
 
 ## Compiler le programme
 
-Il y a un **Makefile **qui permet de le compiler pour la plateforme de votre choix :
+Il y a un **Makefile** qui permet de le compiler pour la plateforme de votre choix :
 
 - `make linux` pour compiler pour Linux (avec _gcc_)
 - `make windows` pour compiler pour Windows (avec _mingw_)
