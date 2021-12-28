@@ -16,17 +16,17 @@ typedef struct sockaddr SOCKADDR;
 typedef struct in_addr IN_ADDR;
 
 void save(int ID, char* key, char* hkey){
-  FILE* f = fopen(FILE_NAME, "a+");
-  if(f == NULL){
-    perror("Fopen()");
-  }
-  fprintf(f,
-      "--- Beginning : %d ---\n"
-      "txt : %s\n"
-	  "hex : %s\n"
-      "--- Ending ---\n"
-      ,ID,key, hkey);
-  fclose(f);
+	FILE* f = fopen(FILE_NAME, "a+");
+	if(f == NULL){
+		perror("Fopen()");
+	}
+	fprintf(f,
+			"--- Beginning : %d ---\n"
+			"txt : %s\n"
+			"hex : %s\n"
+			"--- Ending ---\n"
+			,ID,key, hkey);
+	fclose(f);
 }
 
 int bytes_to_hexa(const unsigned char bytes_string[], char *hex_string, int size)
