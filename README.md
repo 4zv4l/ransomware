@@ -160,9 +160,26 @@ Nous avons mis en place un proxy qui représente un service de serveur en ligne 
   5 directories, 10 files
   ```
   
+- checksum pré chiffrement
+  
+  ````
+  > find data/ -type f | xargs sha1sum
+  
+  2cf476c6ffb101ed73eb84b032b4e6816fcba30a  data/0003.JPG
+  fc2d69354696ef84015ef90c9d616c73a0f72dd2  data/sub1/parent.exe
+  dd6fd1a49da12c531bb7c568595e1db193e60f0b  data/sub1/sub11/81Z67s4AKCL.jpg
+  23701eb4a06bc16ac6fc98c9ff141538b05566fd  data/sub1/sub11/main.c
+  ca05e6d3ccb43ebe86ed2d2be7488285f67fe4d4  data/sub1/trollware2.spec
+  01152d9bdc6e1715b2e198ade983b75ff54d49c4  data/sub2/0003.JPG
+  a76981263ef6e91f5993348ab34296c8db5e2eff  data/sub2/sub21/0003.JPG
+  4958ea852a0ffb480870c82e0f7606addbe8c216  data/sub2/sub21/server
+  c9ae4795dd8a51726672d8dabbb4c0ff0cc53b02  data/sub2/sub22/Featured.jpg
+  132a22029e0c523a1d008a45d5d3a700eef04185  data/sub2/sub22/keylog-master.zip
+  ````
+  
 - Lancement du programme afin de chiffrer ce dossier
 
-  ````bash
+  ````
   > ./bin/r.lin data
   
   -> data/0003.JPG
@@ -221,10 +238,28 @@ Nous avons mis en place un proxy qui représente un service de serveur en ligne 
   5 directories, 10 files
   ````
 
+- checksum post chiffrement
+
+  ````
+  > find data/ -type f | xargs sha1sum
+  
+  84f463b5f33041502d199db58d0de1e529a61b0e  data/0003.JPG.st
+  a0048a845a24bfa50211ec1782e5b3efdf8f7c47  data/sub1/parent.exe.st
+  50ebf8e2c582cc2a024c6421adc55b45f9756dac  data/sub1/sub11/81Z67s4AKCL.jpg.st
+  e0a7b4a607fa52db65e8793112b3fd47d10a9566  data/sub1/sub11/main.c.st
+  e16ba82d1375045ee4155f9d10ed10613e3a6ac4  data/sub1/trollware2.spec.st
+  c2c7395265edec51976b471786f7e19766d3b489  data/sub2/0003.JPG.st
+  298a8d008522c24491216e2e1dbec49e797dfe29  data/sub2/sub21/0003.JPG.st
+  bc089273fcda4f4e629136fd5784738c4b455062  data/sub2/sub21/server.st
+  72714950bed6931e69c0d01e907bb43ef2e14642  data/sub2/sub22/Featured.jpg.st
+  5180f55b8b88663631f8f0927b5941c83dd5bc3c  data/sub2/sub22/keylog-master.zip.st
+  ````
+
 - Lancement du programme afin de déchiffrer ce dossier
 
   ````
   > ./bin/r.lin data 717d7d63292c6170783f69632a6e7d7a797b2c757629292c247066686a783a
+  
   -> data/0003.JPG.st
   processing : data/0003.JPG
   -> data/sub1
@@ -275,6 +310,25 @@ Nous avons mis en place un proxy qui représente un service de serveur en ligne 
   
   5 directories, 10 files
   ````
+  
+- checksum post déchiffrement
+
+  ````
+  > find data/ -type f | xargs sha1sum
+  
+  2cf476c6ffb101ed73eb84b032b4e6816fcba30a  data/0003.JPG
+  fc2d69354696ef84015ef90c9d616c73a0f72dd2  data/sub1/parent.exe
+  dd6fd1a49da12c531bb7c568595e1db193e60f0b  data/sub1/sub11/81Z67s4AKCL.jpg
+  23701eb4a06bc16ac6fc98c9ff141538b05566fd  data/sub1/sub11/main.c
+  ca05e6d3ccb43ebe86ed2d2be7488285f67fe4d4  data/sub1/trollware2.spec
+  01152d9bdc6e1715b2e198ade983b75ff54d49c4  data/sub2/0003.JPG
+  a76981263ef6e91f5993348ab34296c8db5e2eff  data/sub2/sub21/0003.JPG
+  4958ea852a0ffb480870c82e0f7606addbe8c216  data/sub2/sub21/server
+  c9ae4795dd8a51726672d8dabbb4c0ff0cc53b02  data/sub2/sub22/Featured.jpg
+  132a22029e0c523a1d008a45d5d3a700eef04185  data/sub2/sub22/keylog-master.zip
+  ````
+
+  _L'intégrité des fichiers a bien été maintenue pendant le processus._
 
 ## Conclusion
 
