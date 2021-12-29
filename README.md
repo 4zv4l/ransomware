@@ -43,7 +43,7 @@ Il y a un **Makefile** qui permet de le compiler pour la plateforme de votre cho
 
 ## Porter le programme à une autre plateforme
 
-Le programme est conçu de manière à ce que la partie ransomware sans  serveur puisse être portée d'une machine à une autre, à condition qu'elle dispose de la librairie C standard. La seule partie non portable du ransomware est la partie réseau qui est contenu dans les fichiers  "liblin" et "libwin"  pour "Linux" et  "Windows", il vous suffit donc de porter cette partie pour porter complètement le ransomware sur votre plateforme.
+Le programme est conçu de manière à ce que la partie ransomware sans  serveur (`main.c`, `libcom.c`, `libcom.h`) puisse être portée d'une machine à une autre, à condition qu'elle dispose de la librairie C standard. La seule partie non portable du ransomware est la partie réseau qui est contenu dans les fichiers  ``liblin ``et ``libwin  ``pour ``Linux ``et  ``Windows``, il vous suffit donc de porter cette partie pour porter complètement le ransomware sur votre plateforme.
 
 Quant au serveur du ransomware, pour le porter sur Windows ou autre, tout sera à refaire puisque le code utilise les librairies système linux, même si les fonctions système pour les sockets ne changent pas beaucoup entre Linux et Windows.
 
@@ -123,7 +123,7 @@ Les fonctions principales sont :
 ## Les fonctions du serveur
 
 > `char *gen_key(int ID)`
-génère une clef en utilisant l'identifiant donné en paramètre et renvoie la clef générée
+> génère une clef en utilisant l'identifiant donné en paramètre et renvoie la clef générée
 
 > `void save(int ID, char* key, char* hkey)`
 > sauvegarde l'identifiant et la clef en ascii et en hexa dans un fichier

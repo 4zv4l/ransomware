@@ -17,6 +17,7 @@ windows:
 
 server:
 	@gcc -o $(out)/server.lin -Wall serv/$(serv_in)
+	@go build -o $(out)/proxy.lin serv/proxy.go
 	@echo listening...
 	@./$(out)/server.lin &
 	@./bin/proxy.lin &

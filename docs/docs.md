@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Ce document contient la documentation ainsi que la façon d'utiliser le ransomware. Veuillez noter qu'un ransomware est un programme malveillant et qu'il est donc fortement déconseillé de l'utiliser sans en connaitre son fonctionnement.
+Pour commencer, veuillez noter qu'un ransomware est un programme malveillant et qu'il est donc fortement déconseillé de l'utiliser sans en connaitre son fonctionnement.
 
 Celui-ci est un programme qui a été créé dans un but éducatif. 
 Nous révoquons toutes responsabilités quant à l'usage que vous pourriez en faire.
@@ -48,8 +48,6 @@ getKeyArg->encDir
 encDir(path2,bottom)->fin
 ```
 
-
-
 Le ransomware fonctionne comme ceci en ligne de commande : `./ransom <path> [key]`
 
 - `path` est le chemin qui pointe vers le dossier ou le fichier à chiffrer
@@ -67,7 +65,7 @@ Il y a un **Makefile** qui permet de le compiler pour la plateforme de votre cho
 
 ## Porter le programme à une autre plateforme
 
-Le programme est conçu de manière à ce que la partie ransomware sans  serveur puisse être portée d'une machine à une autre, à condition qu'elle dispose de la librairie C standard. La seule partie non portable du ransomware est la partie réseau qui est contenu dans les fichiers  "liblin" et "libwin"  pour "Linux" et  "Windows", il vous suffit donc de porter cette partie pour porter complètement le ransomware sur votre plateforme.
+Le programme est conçu de manière à ce que la partie ransomware sans  serveur (`main.c`, `libcom.c`, `libcom.h`) puisse être portée d'une machine à une autre, à condition qu'elle dispose de la librairie C standard. La seule partie non portable du ransomware est la partie réseau qui est contenu dans les fichiers  ``liblin ``et ``libwin  ``pour ``Linux ``et  ``Windows``, il vous suffit donc de porter cette partie pour porter complètement le ransomware sur votre plateforme.
 
 Quant au serveur du ransomware, pour le porter sur Windows ou autre, tout sera à refaire puisque le code utilise les librairies système linux, même si les fonctions système pour les sockets ne changent pas beaucoup entre Linux et Windows.
 
@@ -87,8 +85,7 @@ Les fonctions principales sont :
 
 > __int encDir(char* path, const char* key)__
 >
-> ``encDir(char* path, const char* key)`` est la fonction principale du programme, c'est elle qui va boucler de manière récursive afin d'envoyer en argument les fichiers à `` processFile()``.
-		**récursif** : _Qui peut être répété un nombre indéfini de fois par l'application de la même règle.
+> ``encDir(char* path, const char* key)`` est la fonction principale du programme, c'est elle qui va boucler de manière récursive afin d'envoyer en argument les fichiers à `` processFile()``
 
 ### Fonctions à usage plus basique
 
@@ -123,12 +120,12 @@ Les fonctions principales sont :
 > écrit dans `stdout` et dans un fichier `readme` comment récupérer les données.
 
 > `char* net_get(int* ID)`
-> reçoit un ID en argument et essaie de se connecter au serveur :  
-> s'il n'y arrive pas alors l'ID est mit à 0  
+> reçoit un identifiant en argument et essaie de se connecter au serveur :  
+> s'il n'y arrive pas alors l'identifiant est mit à 0  
 > s'il y arrive alors renvoie la clef obtenue  
 
 > `void send_ID(SOCKET sock, int* ID)`
-> envoie l'ID au serveur afin qu'il puisse générer une clef unique
+> envoie l'identifiant au serveur afin qu'il puisse générer une clef unique
 
 > `char* get_data(SOCKET sock)`
 > reçoit la clef du serveur
@@ -148,13 +145,13 @@ Les fonctions principales sont :
 ## Les fonctions du serveur
 
 > `char *gen_key(int ID)`
-génère une clef en utilisant l'ID donné en paramètre et renvoie la clef générée
+> génère une clef en utilisant l'identifiant donné en paramètre et renvoie la clef générée
 
 > `void save(int ID, char* key, char* hkey)`
-> sauvegarde l'ID et la clef en ascii et en hexa dans un fichier
+> sauvegarde l'identifiant et la clef en ascii et en hexa dans un fichier
 
 > `void handleClients(SOCKET sock)`
-> s'occupe d'un client (recevoir l'ID, générer la clef, envoyer la clef)
+> s'occupe d'un client (recevoir l'identifiant, générer la clef, envoyer la clef)
 
 ## Serveur intermédiaire
 
