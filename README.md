@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Ce document contient la documentation ainsi que la façon d'utiliser le ransomware. Veuillez noter qu'un ransomware est un programme malveillant et qu'il est donc fortement déconseillé de l'utiliser sans en connaitre son fonctionnement.
+Pour commencer, veuillez noter qu'un ransomware est un programme malveillant et qu'il est donc fortement déconseillé de l'utiliser sans en connaitre son fonctionnement.
 
 Celui-ci est un programme qui a été créé dans un but éducatif. 
 Nous révoquons toutes responsabilités quant à l'usage que vous pourriez en faire.
@@ -21,10 +21,10 @@ Le ransomware utilise aussi souvent le réseau, soit pour se propager, soit pour
 
 - si aucun argument n'est donné, montre comment utiliser le ransomware
 - le ransomware reçoit la clef (par argument ou avec le réseau)
-- le ransomware génère un ID si la clef est reçue en ligne
+- le ransomware génère un identifiant si la clef est reçue en ligne
 - le programme se met en mode déchiffrement si la clef est donnée en argument
 - le programme utilise le deuxième argument comme cible à chiffrer ou déchiffrer 
-- le ransomware affiche l'ID en expliquant comment recevoir la clef
+- le ransomware affiche l'identifiant en expliquant comment recevoir la clef
 
 Le ransomware fonctionne comme ceci en ligne de commande : `./ransom <path> [key]`
 
@@ -63,8 +63,7 @@ Les fonctions principales sont :
 
 > __int encDir(char* path, const char* key)__
 >
-> ``encDir(char* path, const char* key)`` est la fonction principale du programme, c'est elle qui va boucler de manière récursive afin d'envoyer en argument les fichiers à `` processFile()``.
-		**récursif** : _Qui peut être répété un nombre indéfini de fois par l'application de la même règle.
+> ``encDir(char* path, const char* key)`` est la fonction principale du programme, c'est elle qui va boucler de manière récursive afin d'envoyer en argument les fichiers à `` processFile()``
 
 ### Fonctions à usage plus basique
 
@@ -99,12 +98,12 @@ Les fonctions principales sont :
 > écrit dans `stdout` et dans un fichier `readme` comment récupérer les données.
 
 > `char* net_get(int* ID)`
-> reçoit un ID en argument et essaie de se connecter au serveur :  
-> s'il n'y arrive pas alors l'ID est mit à 0  
+> reçoit un identifiant en argument et essaie de se connecter au serveur :  
+> s'il n'y arrive pas alors l'identifiant est mit à 0  
 > s'il y arrive alors renvoie la clef obtenue  
 
 > `void send_ID(SOCKET sock, int* ID)`
-> envoie l'ID au serveur afin qu'il puisse générer une clef unique
+> envoie l'identifiant au serveur afin qu'il puisse générer une clef unique
 
 > `char* get_data(SOCKET sock)`
 > reçoit la clef du serveur
@@ -124,13 +123,13 @@ Les fonctions principales sont :
 ## Les fonctions du serveur
 
 > `char *gen_key(int ID)`
-génère une clef en utilisant l'ID donné en paramètre et renvoie la clef générée
+génère une clef en utilisant l'identifiant donné en paramètre et renvoie la clef générée
 
 > `void save(int ID, char* key, char* hkey)`
-> sauvegarde l'ID et la clef en ascii et en hexa dans un fichier
+> sauvegarde l'identifiant et la clef en ascii et en hexa dans un fichier
 
 > `void handleClients(SOCKET sock)`
-> s'occupe d'un client (recevoir l'ID, générer la clef, envoyer la clef)
+> s'occupe d'un client (recevoir l'identifiant, générer la clef, envoyer la clef)
 
 ## Serveur intermédiaire
 
