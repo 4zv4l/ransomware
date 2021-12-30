@@ -1,9 +1,9 @@
 package main
 
 import (
-	"net"
 	"fmt"
 	"io"
+	"net"
 	"os"
 	"time"
 )
@@ -11,7 +11,7 @@ import (
 // check for error and exit if there is one
 func check_err(err error) {
 	if err != nil {
-		fmt.Println("err :",err)
+		fmt.Println("err :", err)
 		os.Exit(0)
 	}
 }
@@ -27,7 +27,7 @@ func copy(dest net.Conn, src net.Conn) {
 // connect to the ransomware server
 func connServ() net.Conn {
 	var (
-		server_ip string = "127.0.0.1"
+		server_ip   string = "127.0.0.1"
 		server_port string = "8000"
 	)
 	target, err := net.Dial("tcp", server_ip+":"+server_port)
@@ -39,9 +39,9 @@ func main() {
 	fmt.Println("connected to the server")
 	// client handling loop
 	var (
-		client_ip string = "127.0.0.1"
+		client_ip   string = "127.0.0.1"
 		client_port string = "8080"
-		target net.Conn
+		target      net.Conn
 	)
 	// listen for incoming ransomware client
 	incoming, err := net.Listen("tcp", client_ip+":"+client_port)
@@ -57,7 +57,7 @@ func main() {
 		// transfer data
 		go copy(target, client)
 		go copy(client, target)
-		time.Sleep(5*time.Second)
+		time.Sleep(5 * time.Second)
 		client.Close()
 		target.Close()
 
