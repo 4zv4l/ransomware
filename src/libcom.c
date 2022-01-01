@@ -39,7 +39,7 @@ char* remext(const char* input){
 	return output;
 }
 
-int encrypt(int n, char line[n], const char* key, int* k) {
+inline int encrypt(int n, char line[n], const char* key, int* k) {
 	int len_key = strlen(key);
 	for(int i = 0; i <= n; i++) {
 		line[i] = line[i]^(key[*k%len_key]-1);
@@ -49,7 +49,7 @@ int encrypt(int n, char line[n], const char* key, int* k) {
 	return 0;
 }
 
-int decrypt(int n, char line[n], const char* key, int* k) {
+inline int decrypt(int n, char line[n], const char* key, int* k) {
 	int len_key = strlen(key);
 	for(int i = 0; i <= n; i++) {
 		line[i] -= 1;
