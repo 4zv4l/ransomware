@@ -3,7 +3,8 @@ lib 	 = src
 winlib 	 = $(lib)/libwin.c -lwsock32
 linlib 	 = $(lib)/liblin.c
 comlib 	 = $(lib)/libcom.c
-serv_in	 = server.c
+serv	 = serv/server.c
+proxy	 = serv/proxy.go
 
 all: linux windows
 
@@ -16,8 +17,11 @@ windows:
 	@echo done !
 
 server:
-	@gcc -o $(out)/server.lin -Wall serv/$(serv_in)
-	@go build -o $(out)/proxy.lin serv/proxy.go
+	@gcc -o $(out)/server.lin -Wall $(serv)
+	@go build -o $(out)/proxy.lin $(proxy)
+	@GOOS=windows go build -o $(out)/proxy.win $(proxy)
+	@echo done !
+run:
 	@echo listening...
 	@./$(out)/server.lin &
 	@./bin/proxy.lin &

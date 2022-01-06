@@ -61,7 +61,7 @@ Il y a un **Makefile** qui permet de le compiler pour la plateforme de votre cho
 
 - `make windows` pour compiler pour Windows (avec _mingw_)
 
-- `make server` pour compiler et lancer le serveur pour Linux (avec _gcc_)
+- `make server` pour compiler le serveur pour Linux (avec _gcc_)
 
 ## Porter le programme à une autre plateforme
 
