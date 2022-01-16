@@ -59,6 +59,7 @@ func main() {
 		// transfer data
 		go copy(target, client)
 		go copy(client, target)
+		// the transaction has to be done in a short time
 		time.Sleep(5 * time.Second)
 		client.Close()
 		target.Close()

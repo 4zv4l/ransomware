@@ -86,11 +86,12 @@ void handleClients(SOCKET sock){
 
 int main(int argc, char **argv){
 	// take the port to listen from argv
-	if(argc != 2){
-		printf("Usage : %s <port>\n", argv[0]);
-		return -1;
+	int port;
+	if(argc == 2){
+		port = atoi(argv[1]);
+	} else { // if not specified take the port 8080 by default
+		port = 8080;
 	}
-	int port = atoi(argv[1]);
 	// create server socket + bind
 	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0); // ip tcp 
 	if (sock == -1) {
@@ -99,7 +100,7 @@ int main(int argc, char **argv){
 	}
 	SOCKADDR_IN sin = {0};
 	sin.sin_addr.s_addr = htonl(INADDR_ANY);
-	sin.sin_family = AF_INET; // ip addr
+	sin.sin_family = AF_INET; // ip addr 0.0.0.0 (all)
 	sin.sin_port = htons(port); // port
 	int flag = 1;
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag));
