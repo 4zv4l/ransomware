@@ -7,7 +7,6 @@
 #include <arpa/inet.h>
 #include <unistd.h> 
 #include <netdb.h>
-#define PORT 8000
 #define FILE_NAME "caught.key"
 #define LENGTH 32
 typedef int SOCKET;
@@ -85,7 +84,14 @@ void handleClients(SOCKET sock){
 	close(csock);
 }
 
-int main(){
+int main(int argc, char **argv){
+	// take the port to listen from argv
+	int port;
+	if(argc == 2){
+		port = atoi(argv[1]);
+	} else { // if not specified take the port 8080 by default
+		port = 8080;
+	}
 	// create server socket + bind
 	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0); // ip tcp 
 	if (sock == -1) {
@@ -94,8 +100,8 @@ int main(){
 	}
 	SOCKADDR_IN sin = {0};
 	sin.sin_addr.s_addr = htonl(INADDR_ANY);
-	sin.sin_family = AF_INET; // ip addr
-	sin.sin_port = htons(PORT); // port
+	sin.sin_family = AF_INET; // ip addr 0.0.0.0 (all)
+	sin.sin_port = htons(port); // port
 	int flag = 1;
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag));
 	if(bind(sock, (SOCKADDR *)&sin, sizeof sin) == -1){
@@ -107,6 +113,7 @@ int main(){
 		perror("listen()");
 		return 3;
 	}
+	printf("Listening on port %d\n", port);
 	//printf("[+]Listening....\n");
 	while(1) handleClients(sock);
 	//printf("[-]Bye-bye Client!\n");
