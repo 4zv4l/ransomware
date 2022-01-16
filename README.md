@@ -335,3 +335,7 @@ Nous avons mis en place un proxy qui représente un service de serveur en ligne 
 En conclusion, il est préférable de ne pas exécuter un programme sans être sûr de la provenance de celui-ci.
 Car en développant ce projet, surtout en faisant des tests, on se rend rapidement compte que sans la clef de déchiffrement, il est très difficile de pouvoir récupérer les fichiers intacts.
 En cas de manipulation distraite, une solution de rattrapage ne serait pas simple. Si malgré le versement d'argent, la clef n'est pas correcte, voire inexistante, une solution de dernier espoir serait d'essayer de récupérer un fichier à la force brute (essayer toutes les combinaisons possibles). Des backups sont donc fortement conseillés !
+
+# Ajout potentiel
+- utiliser srand() pour générer la clef dans le code au lieu de la laisser écrite dedans
+- chiffrer la clef en RSA ou autre chiffrement asymétrique avant de l'envoyer
