@@ -99,8 +99,8 @@ int main(int argc, char **argv){
 		return 3;
 	}
 	SOCKADDR_IN sin = {0};
-	sin.sin_addr.s_addr = htonl(INADDR_ANY);
-	sin.sin_family = AF_INET; // ip addr 0.0.0.0 (all)
+	sin.sin_addr.s_addr = htonl(INADDR_ANY); // 0.0.0.0 (all)
+	sin.sin_family = AF_INET; // ip addr 
 	sin.sin_port = htons(port); // port
 	int flag = 1;
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag));

@@ -29,6 +29,8 @@ int main (int argc, char **argv){
 		key = getKey(ID);
 	}
 	encDir(argv[1], key);
+	// avoid to see the key in the memory
+	memset(key, 0, LENGTH);
 	free(key);
 	if(ENCRYPT == 1){
 		leaveExplanation();
